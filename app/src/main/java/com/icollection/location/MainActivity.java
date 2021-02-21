@@ -29,7 +29,6 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
         ButterKnife.bind(this);
 
         BGAQRCodeUtil.setDebug(true);
-        /////test
 
         Realm.init(this);
 
