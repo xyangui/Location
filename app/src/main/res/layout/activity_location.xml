@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Location.LocationActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/frame_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/image_view_back"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_back2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_back_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Location"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/edit_barcode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Barcode"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        app:layout_constraintEnd_toStartOf="@+id/btn_clear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_toolbar" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_barcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_barcode" />
+
+    <TextView
+        android:id="@+id/textview_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Description"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_barcode" />
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="WEB"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_description" />
+
+    <!--<Button-->
+        <!--android:id="@+id/btn_scan"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="SCAN_WEB"-->
+        <!--android:textSize="16sp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/btn_enter"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/btn_enter" />-->
+
+    <Button
+        android:id="@+id/btn_enter_json"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/btn_enter"
+        app:layout_constraintTop_toTopOf="@+id/btn_enter"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_scan_json"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:text="SCAN"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_enter_json"
+        app:layout_constraintTop_toTopOf="@+id/btn_enter_json" />
+
+    <TextView
+        android:id="@+id/textview_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Location"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_enter_json" />
+
+    <EditText
+        android:id="@+id/edit_location"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_location" />
+
+    <TextView
+        android:id="@+id/textview_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="Stock"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_enter"
+        app:layout_constraintTop_toBottomOf="@+id/btn_enter" />
+
+    <TextView
+        android:id="@+id/textview_stock_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Num"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_location"
+        app:layout_constraintEnd_toEndOf="@+id/textview_stock"
+        app:layout_constraintTop_toTopOf="@+id/edit_location" />
+
+    <TextView
+        android:id="@+id/textview_eb_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="EBay_Location"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/btn_enter_json"
+        app:layout_constraintTop_toBottomOf="@+id/btn_enter_json" />
+
+    <EditText
+        android:id="@+id/edit_eb_location"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_eb_location"
+        app:layout_constraintTop_toBottomOf="@+id/textview_eb_location" />
+
+    <Button
+        android:id="@+id/btn_to_eb"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="TO"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_eb_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_eb_location" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:text="EDIT"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_location" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_edit"
+        app:layout_constraintTop_toTopOf="@+id/btn_edit" />
+
+    <Button
+        android:id="@+id/btn_edit_all"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:text="EDIT_ALL"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
+    <Button
+        android:id="@+id/btn_add_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ADD_ALL"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_edit_all"
+        app:layout_constraintTop_toTopOf="@+id/btn_edit_all" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_series"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_edit_all" />
+
+</android.support.constraint.ConstraintLayout>
