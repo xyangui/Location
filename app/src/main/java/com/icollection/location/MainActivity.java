@@ -30,6 +30,8 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
 
         BGAQRCodeUtil.setDebug(true);
 
+        ////233445
+
         Realm.init(this);
 
     }
