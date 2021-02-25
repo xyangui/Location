@@ -1,14 +1,11 @@
 package com.icollection.location.Location;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -21,11 +18,9 @@ import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.ToastUtil;
 import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Location.LocationGet;
-import com.icollection.location.Data.Location.LocationGet2;
 import com.icollection.location.Data.Location.RemoteLocation;
-import com.icollection.location.Delivery.DeliveryAffairActivity;
 import com.icollection.location.R;
-import com.icollection.location.ScanActivity;
+import com.icollection.location.Delete.ScanActivity;
 import com.icollection.location.WebViewActivity;
 
 import java.util.ArrayList;
@@ -164,6 +159,10 @@ public class LocationActivity extends NetActivity {
         editBarcode.requestFocus();
     }
 
+
+    /**
+     * 只有位置为空时，才能添加位置
+     */
     @OnFocusChange(R.id.edit_location)
     public void onFocusChanged(boolean focused) {
 
@@ -180,24 +179,17 @@ public class LocationActivity extends NetActivity {
     public static final String WEB_ADDRESS
             = "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/edit-product-location/barcode/";
 
+    // WEB 按钮
     @OnClick(R.id.btn_enter)
     public void btnEnter() {
 
-//        textDescription.setText("");
-//        editLocation.setText("");
-//        seriesAdapter.setNewData(null);
-
-        //String barcode = "APIPHXSMHC103-0";
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
             return;
         }
+
         editBarcode.setText(barcode.toUpperCase());
-
-//        btnAdd.setEnabled(false);
-//        btnAddAll.setEnabled(false);
-
         editBarcode.requestFocus();
 
         Intent intent = new Intent(this, WebViewActivity.class);
@@ -236,7 +228,7 @@ public class LocationActivity extends NetActivity {
     private static final String JSON_ADDRESS =
             "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXSMHC103-0";
 
-    //ok 按钮
+    // OK 按钮
     @OnClick(R.id.btn_enter_json)
     public void btnEnterJson() {
 

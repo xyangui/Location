@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ScanActivity" />
+        <activity android:name=".Delete.ScanActivity" />
 
         <activity android:name=".WebViewActivity" />
 

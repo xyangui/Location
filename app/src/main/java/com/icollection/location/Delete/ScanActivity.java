@@ -1,4 +1,4 @@
-package com.icollection.location;
+package com.icollection.location.Delete;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.icollection.location.Location.LocationActivity;
+import com.icollection.location.R;
+import com.icollection.location.WebViewActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
