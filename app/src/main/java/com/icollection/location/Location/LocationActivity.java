@@ -20,7 +20,6 @@ import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Location.LocationGet;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
-import com.icollection.location.Delete.ScanActivity;
 import com.icollection.location.WebViewActivity;
 
 import java.util.ArrayList;
@@ -55,12 +54,7 @@ public class LocationActivity extends NetActivity {
     @BindView(R.id.textview_stock_num)
     TextView textStockNum;
 
-
-    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
-
     private SeriesAdapter seriesAdapter;
-
-    //private boolean isAdd; //是否可以add，默认不能点击add，只有No location时，才可以add
 
     @Override
     protected void onResume() {
@@ -74,11 +68,10 @@ public class LocationActivity extends NetActivity {
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
 
-        BGAQRCodeUtil.setDebug(true);
+        //BGAQRCodeUtil.setDebug(true);
 
         editBarcode.setTransformationMethod(new TransInformation());//全部转换成大写
         editLocation.setTransformationMethod(new TransInformation());//全部转换成大写
-        //editEBLocation.setTransformationMethod(new TransInformation());//全部转换成大写
 
         editBarcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -89,6 +82,11 @@ public class LocationActivity extends NetActivity {
                 return false;
             }
         });
+
+        initAdapter();
+
+        btnAdd.setEnabled(false);
+        btnAddAll.setEnabled(false);
 
 //        editBarcode.addTextChangedListener(new TextWatcher() {
 //
@@ -118,13 +116,6 @@ public class LocationActivity extends NetActivity {
 //                int dd2 = 3;
 //            }
 //        });
-
-
-        initAdapter();
-
-        //isAdd = false;
-        btnAdd.setEnabled(false);
-        btnAddAll.setEnabled(false);
     }
 
     @OnClick(R.id.image_view_back)
@@ -132,6 +123,7 @@ public class LocationActivity extends NetActivity {
         finish();
     }
 
+    // TO 按钮
     @OnClick(R.id.btn_to_eb)
     public void btnToEBay() {
         Intent intent = new Intent(this, LocationEBActivity.class);
@@ -139,26 +131,24 @@ public class LocationActivity extends NetActivity {
         startActivity(intent);
     }
 
+    // X 按钮
     @OnClick(R.id.btn_clear)
     public void btnClear() {
 
         editBarcode.setText("");
-
-        //editBarcode.setText("APIPHXSMHC103-0");
-
         textDescription.setText("");
+
         editLocation.setText("");
+        editEBLocation.setText("");
+        textStockNum.setText("Num");
+
         seriesAdapter.setNewData(null);
 
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
-        textStockNum.setText("Num");
-        editEBLocation.setText("");
-
         editBarcode.requestFocus();
     }
-
 
     /**
      * 只有位置为空时，才能添加位置
@@ -197,36 +187,11 @@ public class LocationActivity extends NetActivity {
         startActivity(intent);
     }
 
-
-//    @OnClick(R.id.btn_scan)
-//    public void btnScan() {
-//
-//        Intent intent = new Intent(this, ScanActivity.class);
-//        intent.putExtra("is_web", "yes_web");
-//        startActivity(intent);
-//    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == 888 && requestCode == 999) {
-            String barcode = data.getStringExtra("Barcode");
-            editBarcode.setText(barcode);
-
-            textDescription.setText("");
-            editLocation.setText("");
-            seriesAdapter.setNewData(null);
-
-            //editBarcode.setFocusable(false);
-
-            askWebForLocation(barcode);
-        }
-    }
-
     //返回json串，loction地址
     private static final String JSON_ADDRESS =
             "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXSMHC103-0";
+    private static final String EDIT_ADD_ADDRESS =
+            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
     // OK 按钮
     @OnClick(R.id.btn_enter_json)
@@ -236,6 +201,9 @@ public class LocationActivity extends NetActivity {
         editLocation.setText("");
         seriesAdapter.setNewData(null);
 
+        btnAdd.setEnabled(false);
+        btnAddAll.setEnabled(false);
+
         //String barcode = "APIPHXSMHC103-0";
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
@@ -243,15 +211,6 @@ public class LocationActivity extends NetActivity {
             return;
         }
         editBarcode.setText(barcode.toUpperCase());
-
-        askWebForLocation(barcode.toUpperCase());
-    }
-
-    private void askWebForLocation(String barcode) {
-
-        btnAdd.setEnabled(false);
-        btnAddAll.setEnabled(false);
-
         editBarcode.requestFocus();
 
         disposableAddWithProgress(
@@ -290,19 +249,7 @@ public class LocationActivity extends NetActivity {
         }
 
         seriesAdapter.setNewData(locationGets);
-
     }
-
-    //此按钮已经gone
-    @OnClick(R.id.btn_scan_json)
-    public void btnScanJson() {
-
-        Intent intent = new Intent(this, ScanActivity.class);
-        startActivityForResult(intent, 999);
-    }
-
-    private static final String EDIT_ADD_ADDRESS =
-            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
     @OnClick(R.id.btn_edit)
     public void btnEdit() {
@@ -319,13 +266,11 @@ public class LocationActivity extends NetActivity {
 
         btnEdit.setEnabled(false);
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 btnEdit.setEnabled(true);
             }
-        }, 4000);    //延时4s执行
-
+        }, 4000);    //延时4s执行，防止重复点击
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
@@ -354,13 +299,11 @@ public class LocationActivity extends NetActivity {
 
         btnEditAll.setEnabled(false);
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 btnEditAll.setEnabled(true);
             }
-        }, 4000);    //延时4s执行
-
+        }, 4000);    //延时4s执行，防止重复点击
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
@@ -390,7 +333,7 @@ public class LocationActivity extends NetActivity {
         }
         editLocation.setText(location.toUpperCase());
 
-        btnAdd.setEnabled(false);
+        btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
 
         disposableAddWithProgress(
@@ -415,7 +358,7 @@ public class LocationActivity extends NetActivity {
         }
         editLocation.setText(location.toUpperCase());
 
-        btnAdd.setEnabled(false);
+        btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
 
         disposableAddWithProgress(
@@ -428,10 +371,8 @@ public class LocationActivity extends NetActivity {
                 });
     }
 
-    //显示系列其他产品位置列表
-
     /**
-     * 绑定适配器：动态，下拉随着整个 SwipeRefreshLayout 一起刷新，上拉加载
+     * 绑定适配器，显示系列其他产品位置列表
      */
     private void initAdapter() {
 
@@ -443,7 +384,6 @@ public class LocationActivity extends NetActivity {
         //seriesAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         //seriesAdapter.setLoadMoreView(new CustomLoadMoreView());
 
-        //处理"动态"每一项中的"点赞"，"关注"，"私信"事件
         //adapterInterest.setOnItemChildClickListener(new ItemChildClickListener(this, mPresenter));
 
         recyclerviewSeries.setAdapter(seriesAdapter);
