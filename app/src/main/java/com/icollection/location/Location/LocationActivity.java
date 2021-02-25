@@ -39,8 +39,6 @@ public class LocationActivity extends NetActivity {
     TextView textDescription;
     @BindView(R.id.edit_location)
     EditText editLocation;
-    @BindView(R.id.edit_eb_location)
-    EditText editEBLocation;
     @BindView(R.id.recyclerview_series)
     RecyclerView recyclerviewSeries;
     @BindView(R.id.btn_edit)
@@ -77,6 +75,7 @@ public class LocationActivity extends NetActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED || actionId == EditorInfo.IME_ACTION_DONE) {
+                    //手持机扫描出barcode后
                     btnEnterJson();
                 }
                 return false;
@@ -123,7 +122,7 @@ public class LocationActivity extends NetActivity {
         finish();
     }
 
-    // TO 按钮
+    // EBay Location 按钮
     @OnClick(R.id.btn_to_eb)
     public void btnToEBay() {
         Intent intent = new Intent(this, LocationEBActivity.class);
@@ -137,9 +136,7 @@ public class LocationActivity extends NetActivity {
 
         editBarcode.setText("");
         textDescription.setText("");
-
         editLocation.setText("");
-        editEBLocation.setText("");
         textStockNum.setText("Num");
 
         seriesAdapter.setNewData(null);
@@ -189,7 +186,7 @@ public class LocationActivity extends NetActivity {
 
     //返回json串，loction地址
     private static final String JSON_ADDRESS =
-            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXSMHC103-0";
+            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/OTH-TKUNI-104-0";
     private static final String EDIT_ADD_ADDRESS =
             "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
@@ -204,7 +201,6 @@ public class LocationActivity extends NetActivity {
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
-        //String barcode = "APIPHXSMHC103-0";
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
@@ -237,14 +233,13 @@ public class LocationActivity extends NetActivity {
         for (LocationGet locationGet : locationGets) {
 
             String str = locationGet.getBcode().trim();
-            String str2 = editBarcode.getText().toString();
+            String str2 = editBarcode.getText().toString().trim();
             if (str.equals(str2)) {
 
                 editLocation.setText(locationGet.getLocation_list().get_PL_Location());
                 textDescription.setText(locationGet.getDescription());
 
                 textStockNum.setText(locationGet.getStock());
-                editEBLocation.setText(locationGet.getLocation_list().get_EB_Location());
             }
         }
 

@@ -49,9 +49,6 @@ public class LocationEBActivity extends NetActivity {
     @BindView(R.id.btn_add_all)
     Button btnAddAll;
 
-
-    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
-
     private SeriesAdapterEB seriesAdapter;
 
     @Override
@@ -92,7 +89,6 @@ public class LocationEBActivity extends NetActivity {
             editBarcode.setText(str);
             btnEnterJson();
         }
-
     }
 
     @OnClick(R.id.image_view_back)
@@ -100,15 +96,14 @@ public class LocationEBActivity extends NetActivity {
         finish();
     }
 
+    // X 按钮
     @OnClick(R.id.btn_clear)
     public void btnClear() {
 
         editBarcode.setText("");
-
-        //editBarcode.setText("APIPHXSMHC103-0");
-
         textDescription.setText("");
         editLocation.setText("");
+
         seriesAdapter.setNewData(null);
 
         btnAdd.setEnabled(false);
@@ -117,6 +112,9 @@ public class LocationEBActivity extends NetActivity {
         editBarcode.requestFocus();
     }
 
+    /**
+     * 只有位置为空时，才能添加位置
+     */
     @OnFocusChange(R.id.edit_location)
     public void onFocusChanged(boolean focused) {
 
@@ -133,18 +131,17 @@ public class LocationEBActivity extends NetActivity {
     public static final String WEB_ADDRESS
             = "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/edit-product-location/barcode/";
 
-    //手动输入barcode，点击web按钮
+    // WEB 按钮
     @OnClick(R.id.btn_enter)
     public void btnEnter() {
 
-        //String barcode = "APIPHXSMHC103-0";
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
             return;
         }
-        editBarcode.setText(barcode.toUpperCase());
 
+        editBarcode.setText(barcode.toUpperCase());
         editBarcode.requestFocus();
 
         Intent intent = new Intent(this, WebViewActivity.class);
@@ -155,8 +152,10 @@ public class LocationEBActivity extends NetActivity {
     //返回json串，loction地址
     private static final String JSON_ADDRESS =
             "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXSMHC103-0";
+    private static final String EDIT_ADD_ADDRESS =
+            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
-    //手动输入barcode，点击ok按钮
+    // OK 按钮
     @OnClick(R.id.btn_enter_json)
     public void btnEnterJson() {
 
@@ -164,22 +163,15 @@ public class LocationEBActivity extends NetActivity {
         editLocation.setText("");
         seriesAdapter.setNewData(null);
 
-        //String barcode = "APIPHXSMHC103-0";
+        btnAdd.setEnabled(false);
+        btnAddAll.setEnabled(false);
+
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
             return;
         }
         editBarcode.setText(barcode.toUpperCase());
-
-        askWebForLocation(barcode.toUpperCase());
-    }
-
-    private void askWebForLocation(String barcode) {
-
-        btnAdd.setEnabled(false);
-        btnAddAll.setEnabled(false);
-
         editBarcode.requestFocus();
 
         disposableAddWithProgress(
@@ -206,20 +198,16 @@ public class LocationEBActivity extends NetActivity {
         for (LocationGetEB locationGet : locationGets) {
 
             String str = locationGet.getBcode().trim();
-            String str2 = editBarcode.getText().toString();
+            String str2 = editBarcode.getText().toString().trim();
             if (str.equals(str2)) {
-
-                editLocation.setText(locationGet.getLocation_list().get_EB_Location());
+                String locationEB = locationGet.getLocation_list().get_EB_Location();
+                editLocation.setText(locationEB);
                 textDescription.setText(locationGet.getDescription());
             }
         }
 
         seriesAdapter.setNewData(locationGets);
-
     }
-
-    private static final String EDIT_ADD_ADDRESS =
-            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
     @OnClick(R.id.btn_edit)
     public void btnEdit() {
@@ -241,8 +229,7 @@ public class LocationEBActivity extends NetActivity {
             public void run() {
                 btnEdit.setEnabled(true);
             }
-        }, 4000);    //延时4s执行
-
+        }, 4000);    //延时4s执行，防止重复点击
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
@@ -276,8 +263,7 @@ public class LocationEBActivity extends NetActivity {
             public void run() {
                 btnEditAll.setEnabled(true);
             }
-        }, 4000);    //延时4s执行
-
+        }, 4000);    //延时4s执行，防止重复点击
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
@@ -307,8 +293,7 @@ public class LocationEBActivity extends NetActivity {
         }
         editLocation.setText(location.toUpperCase());
 
-
-        btnAdd.setEnabled(false);
+        btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
 
         disposableAddWithProgress(
@@ -333,7 +318,7 @@ public class LocationEBActivity extends NetActivity {
         }
         editLocation.setText(location.toUpperCase());
 
-        btnAdd.setEnabled(false);
+        btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
 
         disposableAddWithProgress(
@@ -346,10 +331,8 @@ public class LocationEBActivity extends NetActivity {
                 });
     }
 
-    //显示系列其他产品位置列表
-
     /**
-     * 绑定适配器：动态，下拉随着整个 SwipeRefreshLayout 一起刷新，上拉加载
+     * 绑定适配器，显示系列其他产品位置列表
      */
     private void initAdapter() {
 
@@ -361,7 +344,6 @@ public class LocationEBActivity extends NetActivity {
         //seriesAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         //seriesAdapter.setLoadMoreView(new CustomLoadMoreView());
 
-        //处理"动态"每一项中的"点赞"，"关注"，"私信"事件
         //adapterInterest.setOnItemChildClickListener(new ItemChildClickListener(this, mPresenter));
 
         recyclerviewSeries.setAdapter(seriesAdapter);
