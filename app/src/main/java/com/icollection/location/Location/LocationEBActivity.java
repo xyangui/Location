@@ -166,7 +166,7 @@ public class LocationEBActivity extends NetActivity {
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
-        String barcode = editBarcode.getText().toString();
+        String barcode = editBarcode.getText().toString().trim();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
             return;

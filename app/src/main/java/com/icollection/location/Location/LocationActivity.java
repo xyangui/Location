@@ -20,6 +20,7 @@ import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Location.LocationGet;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
+import com.icollection.location.ShopStock.ShopStockActivity;
 import com.icollection.location.WebViewActivity;
 
 import java.util.ArrayList;
@@ -130,6 +131,14 @@ public class LocationActivity extends NetActivity {
         startActivity(intent);
     }
 
+    // Shop Stock 按钮
+    @OnClick(R.id.btn_shop_stock)
+    public void btnShopStock() {
+        Intent intent = new Intent(this, ShopStockActivity.class);
+        intent.putExtra("barcode", editBarcode.getText().toString().toUpperCase());
+        startActivity(intent);
+    }
+
     // X 按钮
     @OnClick(R.id.btn_clear)
     public void btnClear() {
@@ -201,7 +210,7 @@ public class LocationActivity extends NetActivity {
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
 
-        String barcode = editBarcode.getText().toString();
+        String barcode = editBarcode.getText().toString().trim();
         if (barcode.isEmpty()) {
             ToastUtil.showShort(this, "Please enter barcode!");
             return;

@@ -22,7 +22,7 @@ public class Http {
     private static final String API_URL = "http://approd9h4leb60v4olh1v.phonecollection.com.au/";
     public static final String API_URL_IMAGE = "https://app.meljianghu.com/storage/";
 
-    private static final int DEFAULT_TIMEOUT = 5;
+    private static final int DEFAULT_TIMEOUT = 3;
 
     private Retrofit retrofit;
     private Api api;
@@ -32,7 +32,9 @@ public class Http {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder builder = new OkHttpClient
                 .Builder()
-                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
+                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
+                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES);
 
         retrofit = new Retrofit.Builder()
                 .client(builder.build())

@@ -1,6 +1,6 @@
 package com.icollection.location.Data.Location;
 
-public class ShopStock {
+public class ShopStockBean {
 
     /**
      * shop : BSIC
