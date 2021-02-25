@@ -4,24 +4,24 @@ import android.content.Context;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.icollection.location.Data.Location.LocationGet2;
+import com.icollection.location.Data.Location.LocationGetEB;
 import com.icollection.location.R;
 
 import java.util.List;
 
-public class SeriesAdapter2 extends BaseQuickAdapter<LocationGet2, BaseViewHolder> {
+public class SeriesAdapterEB extends BaseQuickAdapter<LocationGetEB, BaseViewHolder> {
 
     private Context context;
     private boolean isEbay;
 
-    public SeriesAdapter2(List<LocationGet2> data, Context context, boolean isEbay) {
+    public SeriesAdapterEB(List<LocationGetEB> data, Context context, boolean isEbay) {
         super(R.layout.item_series, data);
         this.context = context;
         this.isEbay = isEbay;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LocationGet2 item) {
+    protected void convert(BaseViewHolder helper, LocationGetEB item) {
 
         helper.setText(R.id.text_bcode, item.getBcode());
         helper.setText(R.id.text_des, item.getDescription());

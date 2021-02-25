@@ -3,6 +3,7 @@ package com.icollection.location.Data.Location;
 import android.support.annotation.NonNull;
 
 import com.icollection.location.Net.Http;
+import com.icollection.location.Net.HttpIP;
 
 import io.reactivex.Flowable;
 
@@ -89,6 +90,14 @@ public class RemoteLocation {
                 .getInstance()
                 .getApi()
                 .addAllLocationEB(bcode, location);
+    }
+
+    public Flowable<String> getShopStock(@NonNull String bcode) {
+
+        return HttpIP
+                .getInstance()
+                .getApi()
+                .getShopStock(bcode);
     }
 
 }

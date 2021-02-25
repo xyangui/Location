@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.ToastUtil;
 import com.icollection.location.Base.TransInformation;
-import com.icollection.location.Data.Location.LocationGet2;
+import com.icollection.location.Data.Location.LocationGetEB;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
 import com.icollection.location.WebViewActivity;
@@ -52,7 +52,7 @@ public class LocationEBActivity extends NetActivity {
 
     private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
 
-    private SeriesAdapter2 seriesAdapter;
+    private SeriesAdapterEB seriesAdapter;
 
     @Override
     protected void onResume() {
@@ -200,10 +200,10 @@ public class LocationEBActivity extends NetActivity {
         }
 
         Gson gson = new Gson();
-        List<LocationGet2> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGet2>>() {
+        List<LocationGetEB> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGetEB>>() {
         }.getType());
 
-        for (LocationGet2 locationGet : locationGets) {
+        for (LocationGetEB locationGet : locationGets) {
 
             String str = locationGet.getBcode().trim();
             String str2 = editBarcode.getText().toString();
@@ -356,7 +356,7 @@ public class LocationEBActivity extends NetActivity {
         recyclerviewSeries.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewSeries.setItemAnimator(new DefaultItemAnimator());
 
-        seriesAdapter = new SeriesAdapter2(new ArrayList<>(), this, true);
+        seriesAdapter = new SeriesAdapterEB(new ArrayList<>(), this, true);
         //seriesAdapter.setOnLoadMoreListener(this, recyclerviewInterest);
         //seriesAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         //seriesAdapter.setLoadMoreView(new CustomLoadMoreView());

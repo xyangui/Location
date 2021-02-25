@@ -2,7 +2,7 @@ package com.icollection.location.Data.Location;
 
 import java.util.List;
 
-public class LocationGet2 {
+public class LocationGetEB {
 
     /**
      * bcode : APIPHXRLC103-0
