@@ -50,13 +50,18 @@ public class ShopStockActivity extends NetActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED || actionId == EditorInfo.IME_ACTION_DONE) {
                     //手持机扫描出barcode后
-                    btnOK();
+//                    btnOK();
                 }
                 return false;
             }
         });
 
         initAdapter();
+    }
+
+    @OnClick(R.id.image_view_back)
+    public void imageViewBack() {
+        finish();
     }
 
     /**
@@ -94,31 +99,31 @@ public class ShopStockActivity extends NetActivity {
                         .getShopStock(barcode),
                 strHtml -> {
 
-                    jsonToShow(strHtml);
+                    //jsonToShow(strHtml);
                 });
     }
-
-    private void jsonToShow(String strHtml) {
-
-        if (strHtml.isEmpty() || strHtml.equals("null")) {
-            ToastUtil.showShort(this, "No items were found!");
-            return;
-        }
-
-        Gson gson = new Gson();
-        List<ShopStockBean> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGet>>() {
-        }.getType());
-
-//        for (ShopStockBean locationGet : locationGets) {
 //
-//            String str = locationGet.getBcode().trim();
-//            String str2 = editBarcode.getText().toString().trim();
-//            if (str.equals(str2)) {
+//    private void jsonToShow(String strHtml) {
 //
-//                textDescription.setText(locationGet.getDescription());
-//            }
+//        if (strHtml.isEmpty() || strHtml.equals("null")) {
+//            ToastUtil.showShort(this, "No items were found!");
+//            return;
 //        }
-
-        shopStockAdapter.setNewData(locationGets);
-    }
+//
+//        Gson gson = new Gson();
+//        List<ShopStockBean> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGet>>() {
+//        }.getType());
+//
+////        for (ShopStockBean locationGet : locationGets) {
+////
+////            String str = locationGet.getBcode().trim();
+////            String str2 = editBarcode.getText().toString().trim();
+////            if (str.equals(str2)) {
+////
+////                textDescription.setText(locationGet.getDescription());
+////            }
+////        }
+//
+//        shopStockAdapter.setNewData(locationGets);
+//    }
 }

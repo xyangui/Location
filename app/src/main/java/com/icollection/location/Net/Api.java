@@ -38,7 +38,7 @@ public interface Api {
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/add_Ebay")
     Flowable<String> addLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z12/act/addAll_Ebay"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z52/act/addAll_Ebay"
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll_Ebay")
     Flowable<String> addAllLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 }

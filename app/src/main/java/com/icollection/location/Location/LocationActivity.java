@@ -195,7 +195,7 @@ public class LocationActivity extends NetActivity {
 
     //返回json串，loction地址
     private static final String JSON_ADDRESS =
-            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/OTH-TKUNI-104-0";
+            "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXRLC103-0";
     private static final String EDIT_ADD_ADDRESS =
             "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXSMHC103-0/location/U23/act/edit";
 
