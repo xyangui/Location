@@ -12,19 +12,20 @@ import java.util.List;
 public class ShopStockAdapter extends BaseQuickAdapter<ShopStockBean, BaseViewHolder> {
 
     private Context context;
-    private boolean isEbay;
 
     public ShopStockAdapter(List<ShopStockBean> data, Context context) {
-        super(R.layout.item_series, data);
+        super(R.layout.item_shopstock, data);
         this.context = context;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ShopStockBean item) {
 
+        String str = item.getShop();
         helper.setText(R.id.text_bcode, item.getShop());
 
-        helper.setText(R.id.text_pl, item.getStock());
+        String stock = String.valueOf(item.getStock());
+        helper.setText(R.id.text_num, stock);
 
 //        if(isEbay) {
 //            helper.setText(R.id.text_pl, item.getLocation_list().get_EB_Location());

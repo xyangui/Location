@@ -8,6 +8,7 @@ import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Delivery.DeliveryAffairActivity;
 import com.icollection.location.Location.LocationActivity;
 import com.icollection.location.Location.LocationEBActivity;
+import com.icollection.location.ShopStock.ShopStockActivity;
 
 import java.util.List;
 
@@ -43,6 +44,12 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
     @OnClick(R.id.constraint_location_eb)
     public void LocationEB() {
         Intent intent = new Intent(this, LocationEBActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.constraint_shop_stock)
+    public void ShopStock() {
+        Intent intent = new Intent(this, ShopStockActivity.class);
         startActivity(intent);
     }
 

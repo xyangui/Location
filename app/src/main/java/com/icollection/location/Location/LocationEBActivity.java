@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +55,7 @@ public class LocationEBActivity extends NetActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        editBarcode.requestFocus();
+        //textDescription.requestFocus();
     }
 
     @Override
@@ -84,10 +85,13 @@ public class LocationEBActivity extends NetActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            //如果是LOCATION调用本页
+            //如果是 LOCATION 调用本页
             String str = bundle.getString("barcode");
             editBarcode.setText(str);
             btnEnterJson();
+
+            //禁止软键盘弹出
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
     }
 
@@ -172,7 +176,7 @@ public class LocationEBActivity extends NetActivity {
             return;
         }
         editBarcode.setText(barcode.toUpperCase());
-        editBarcode.requestFocus();
+//        editBarcode.requestFocus();
 
         disposableAddWithProgress(
                 RemoteLocation

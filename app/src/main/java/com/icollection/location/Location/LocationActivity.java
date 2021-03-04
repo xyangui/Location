@@ -136,6 +136,7 @@ public class LocationActivity extends NetActivity {
     public void btnShopStock() {
         Intent intent = new Intent(this, ShopStockActivity.class);
         intent.putExtra("barcode", editBarcode.getText().toString().toUpperCase());
+        intent.putExtra("description", textDescription.getText().toString());
         startActivity(intent);
     }
 
