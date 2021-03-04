@@ -246,10 +246,12 @@ public class LocationActivity extends NetActivity {
             String str2 = editBarcode.getText().toString().trim();
             if (str.equals(str2)) {
 
+                String str33 = locationGet.getLocation_list().get_PL_Location();
                 editLocation.setText(locationGet.getLocation_list().get_PL_Location());
                 textDescription.setText(locationGet.getDescription());
 
                 textStockNum.setText(locationGet.getStock());
+                break;
             }
         }
 
@@ -384,7 +386,7 @@ public class LocationActivity extends NetActivity {
         recyclerviewSeries.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewSeries.setItemAnimator(new DefaultItemAnimator());
 
-        seriesAdapter = new SeriesAdapter(new ArrayList<>(), this,false);
+        seriesAdapter = new SeriesAdapter(new ArrayList<>(), this);
         //seriesAdapter.setOnLoadMoreListener(this, recyclerviewInterest);
         //seriesAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         //seriesAdapter.setLoadMoreView(new CustomLoadMoreView());

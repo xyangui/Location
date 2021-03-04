@@ -8,7 +8,7 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPHXRLC103-0"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPH12SC102-0"
     @GET("stock/json-check-location/barcode2/{bcode}")
     Flowable<String> getLocation(@Path("bcode") String bcode);
 
@@ -38,7 +38,7 @@ public interface Api {
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/add_Ebay")
     Flowable<String> addLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z52/act/addAll_Ebay"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPH12SC102-0/location/Z31/act/addAll_Ebay"
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll_Ebay")
     Flowable<String> addAllLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 }

@@ -12,12 +12,12 @@ import java.util.List;
 public class SeriesAdapter extends BaseQuickAdapter<LocationGet, BaseViewHolder> {
 
     private Context context;
-    private boolean isEbay;
+    //private boolean isEbay;
 
-    public SeriesAdapter(List<LocationGet> data, Context context, boolean isEbay) {
+    public SeriesAdapter(List<LocationGet> data, Context context) {
         super(R.layout.item_series, data);
         this.context = context;
-        this.isEbay = isEbay;
+        //this.isEbay = isEbay;
     }
 
     @Override
@@ -26,11 +26,11 @@ public class SeriesAdapter extends BaseQuickAdapter<LocationGet, BaseViewHolder>
         helper.setText(R.id.text_bcode, item.getBcode());
         helper.setText(R.id.text_des, item.getDescription());
 
-        if(isEbay) {
-            helper.setText(R.id.text_pl, item.getLocation_list().get_EB_Location());
-        } else {
+        //if(isEbay) {
+            //helper.setText(R.id.text_pl, item.getLocation_list().get_EB_Location());
+        //} else {
             helper.setText(R.id.text_pl, item.getLocation_list().get_PL_Location());
-        }
+        //}
 
 //        helper.addOnClickListener(R.id.image_like_red);
 //        helper.addOnClickListener(R.id.image_like_black);

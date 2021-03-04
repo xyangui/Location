@@ -79,7 +79,7 @@ public class LocationGet {
                 }
             }
 
-            if(strList.equals("No location")){
+            if(strList.equals("No location") || strList.isEmpty()){
                 return "NONE";
             }
             return strList;
@@ -99,7 +99,7 @@ public class LocationGet {
                 }
             }
 
-            if(strList.isEmpty()){
+            if(strList.equals("No location") || strList.isEmpty()){
                 return "NONE";
             }
             return strList;

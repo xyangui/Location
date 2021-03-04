@@ -95,7 +95,7 @@ public class LocationEBActivity extends NetActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
 
-        editBarcode.setText("APIPHXRLC103-0");
+        //editBarcode.setText("APIPHXRLC103-0");
     }
 
     @OnClick(R.id.image_view_back)
@@ -210,6 +210,7 @@ public class LocationEBActivity extends NetActivity {
                 String locationEB = locationGet.getLocation_list().get_EB_Location();
                 editLocation.setText(locationEB);
                 textDescription.setText(locationGet.getDescription());
+                break;
             }
         }
 
@@ -337,7 +338,55 @@ public class LocationEBActivity extends NetActivity {
                         .addAllLocationEB(barcode, location.toUpperCase()),
                 strHtml -> {
 
-                    jsonToShow(strHtml);
+//                    jsonToShow(strHtml);
+
+                    if (strHtml.isEmpty() || strHtml.equals("null")) {
+                        ToastUtil.showShort(this, "No items were found!");
+//                        return null;
+                    }
+
+                    Gson gson = new Gson();
+                    List<LocationGetEB> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGetEB>>() {
+                    }.getType());
+
+                    for (LocationGetEB locationGet : locationGets) {
+
+                        String str = locationGet.getBcode().trim();
+                        String str2 = editBarcode.getText().toString().trim();
+                        if (str.equals(str2)) {
+                            String locationEB = locationGet.getLocation_list().get_EB_Location();
+                            editLocation.setText(locationEB);
+                            textDescription.setText(locationGet.getDescription());
+                            break;
+                        }
+                    }
+
+                    seriesAdapter.setNewData(locationGets);
+                });
+
+
+
+
+//        String barcode = editBarcode.getText().toString();
+//        if (barcode.isEmpty()) {
+//            return;
+//        }
+//        String location = editLocation.getText().toString();
+//        if (location.isEmpty()) {
+//            return;
+//        }
+//        editLocation.setText(location.toUpperCase());
+//
+//        btnAdd.setEnabled(false);//只能执行一次
+//        btnAddAll.setEnabled(false);
+//
+//        disposableAddWithProgress(
+//                RemoteLocation
+//                        .getInstance()
+//                        .addAllLocationEB(barcode, location.toUpperCase()),
+//                strHtml -> {
+//
+//                    jsonToShow(strHtml);
 
                     //List<LocationGetEB> locationGetEBs = jsonToShow(strHtml);
 
@@ -363,7 +412,7 @@ public class LocationEBActivity extends NetActivity {
 ////                                .positiveText("OK")
 ////                                .show();
 //                    }
-                });
+ //               });
     }
 
     /**
@@ -374,7 +423,7 @@ public class LocationEBActivity extends NetActivity {
         recyclerviewSeries.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewSeries.setItemAnimator(new DefaultItemAnimator());
 
-        seriesAdapter = new SeriesAdapterEB(new ArrayList<>(), this, true);
+        seriesAdapter = new SeriesAdapterEB(new ArrayList<>(), this);
         //seriesAdapter.setOnLoadMoreListener(this, recyclerviewInterest);
         //seriesAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         //seriesAdapter.setLoadMoreView(new CustomLoadMoreView());
