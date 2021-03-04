@@ -21,10 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:singleLine="true"
             android:text="bcode"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="64dp"
             android:singleLine="true"
+            android:textSize="16sp"
             android:text="num"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_bcode" />
