@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
@@ -93,6 +94,8 @@ public class LocationEBActivity extends NetActivity {
             //禁止软键盘弹出
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
+
+        editBarcode.setText("APIPHXRLC103-0");
     }
 
     @OnClick(R.id.image_view_back)
@@ -188,11 +191,11 @@ public class LocationEBActivity extends NetActivity {
                 });
     }
 
-    private void jsonToShow(String strHtml) {
+    private List<LocationGetEB> jsonToShow(String strHtml) {
 
         if (strHtml.isEmpty() || strHtml.equals("null")) {
             ToastUtil.showShort(this, "No items were found!");
-            return;
+            return null;
         }
 
         Gson gson = new Gson();
@@ -211,6 +214,8 @@ public class LocationEBActivity extends NetActivity {
         }
 
         seriesAdapter.setNewData(locationGets);
+
+        return locationGets;
     }
 
     @OnClick(R.id.btn_edit)
@@ -312,6 +317,7 @@ public class LocationEBActivity extends NetActivity {
 
     @OnClick(R.id.btn_add_all)
     public void btnAddAll() {
+
         String barcode = editBarcode.getText().toString();
         if (barcode.isEmpty()) {
             return;
@@ -332,6 +338,31 @@ public class LocationEBActivity extends NetActivity {
                 strHtml -> {
 
                     jsonToShow(strHtml);
+
+                    //List<LocationGetEB> locationGetEBs = jsonToShow(strHtml);
+
+//                    String listBcode = "";
+//                    for (LocationGetEB locationGet : locationGetEBs) {
+//
+//                        int status = locationGet.getStatus();
+//                        if (status == 1) { // =0时，添加成功；=1时，添加失败
+//
+//                            if(listBcode.isEmpty()){
+//                                listBcode = locationGet.getBcode();
+//                            } else {
+//                                listBcode = listBcode + ";" + locationGet.getBcode();
+//                            }
+//                        }
+//                    }
+//
+//                    if(!listBcode.isEmpty()){
+//
+////                        new MaterialDialog.Builder(LocationEBActivity.this)
+////                                .title("Warning")
+////                                .content(listBcode + " Already with location, Use EDIT_ALL!")
+////                                .positiveText("OK")
+////                                .show();
+//                    }
                 });
     }
 

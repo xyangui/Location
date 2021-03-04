@@ -13,6 +13,8 @@ public class LocationGetEB {
     private String bcode;
     private String description;
     private LocationListBean location_list;
+    private int status;    // =0时，添加成功；=1时，添加失败，失败原因在 remark里
+    private String remark;
 
     public String getBcode() {
         return bcode;
@@ -92,5 +94,21 @@ public class LocationGetEB {
             }
             return strList;
         }
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

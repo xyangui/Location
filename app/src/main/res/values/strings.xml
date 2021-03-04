@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">IC</string>
+
+    <string-array name="shop_name_list">
+        <item>EPIC</item>
+        <item>WBPC</item>
+        <item>FGIC</item>
+        <item>HPIC</item>
+        <item>GBIC</item>
+        <item>CBIC</item>
+        <item>NLIC</item>
+        <item>BSIC</item>
+    </string-array>
 </resources>
