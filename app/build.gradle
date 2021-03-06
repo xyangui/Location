@@ -73,5 +73,5 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     //下拉刷新上拉加载
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 }

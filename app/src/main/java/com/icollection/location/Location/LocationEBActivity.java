@@ -338,6 +338,8 @@ public class LocationEBActivity extends NetActivity {
                         .addAllLocationEB(barcode, location.toUpperCase()),
                 strHtml -> {
 
+                    List<LocationGetEB> locationGetEBs_old = seriesAdapter.getData();
+
 //                    jsonToShow(strHtml);
 
                     if (strHtml.isEmpty() || strHtml.equals("null")) {
@@ -357,11 +359,33 @@ public class LocationEBActivity extends NetActivity {
                             String locationEB = locationGet.getLocation_list().get_EB_Location();
                             editLocation.setText(locationEB);
                             textDescription.setText(locationGet.getDescription());
-                            break;
+                            //break;
+                        }
+
+                        if(locationGet.getStatus() == 0){ //success
+
+                            for (LocationGetEB locationGet_old : locationGetEBs_old) {
+
+                                //把修改成功的item，改成新的位置
+                                if(locationGet_old.getBcode().trim().equals(str)){
+
+                                    List<String> list = new ArrayList<>();
+                                    list.add("EB");
+                                    list.add(locationGet.getLocation_list().get_EB_Location());
+
+                                    List<List<String>> listlist = new ArrayList<>();
+                                    listlist.add(list);
+
+                                    LocationGetEB.LocationListBean bean = new LocationGetEB.LocationListBean();
+                                    bean.setCode_location(listlist);
+
+                                    locationGet_old.setLocation_list(bean);//修改locationGet_old，相当于修改数组内的值
+                                }
+                            }
                         }
                     }
 
-                    seriesAdapter.setNewData(locationGets);
+                    seriesAdapter.notifyDataSetChanged();
                 });
 
 
