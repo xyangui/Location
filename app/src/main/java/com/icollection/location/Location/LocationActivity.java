@@ -155,12 +155,14 @@ public class LocationActivity extends NetActivity {
 
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnEditAll.setEnabled(true);
 
         editBarcode.requestFocus();
     }
 
     /**
-     * 只有位置为空时，才能添加位置
+     * 只有位置为空时，才能添加位置，并且不能修改位置
      */
     @OnFocusChange(R.id.edit_location)
     public void onFocusChanged(boolean focused) {
@@ -171,6 +173,8 @@ public class LocationActivity extends NetActivity {
 
             btnAdd.setEnabled(true);
             btnAddAll.setEnabled(true);
+            btnEdit.setEnabled(false);
+            btnEditAll.setEnabled(false);
         }
     }
 
@@ -212,6 +216,8 @@ public class LocationActivity extends NetActivity {
 
         btnAdd.setEnabled(false);
         btnAddAll.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnEditAll.setEnabled(true);
 
         String barcode = editBarcode.getText().toString().trim();
         if (barcode.isEmpty()) {
@@ -344,6 +350,8 @@ public class LocationActivity extends NetActivity {
 
         btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnEditAll.setEnabled(true);
 
         disposableAddWithProgress(
                 RemoteLocation
@@ -369,6 +377,8 @@ public class LocationActivity extends NetActivity {
 
         btnAdd.setEnabled(false);//只能执行一次
         btnAddAll.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnEditAll.setEnabled(true);
 
         disposableAddWithProgress(
                 RemoteLocation
