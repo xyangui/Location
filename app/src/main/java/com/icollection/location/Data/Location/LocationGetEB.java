@@ -8,12 +8,14 @@ public class LocationGetEB {
      * bcode : APIPHXRLC103-0
      * description : B0 Mercury IPHXR Rich Diary With Card Pocket Black
      * location_list : {"code_location":[["EB","Z12"]]}
+     * status : 1
+     * remark : Already with location,Use editAll function
      */
 
     private String bcode;
     private String description;
     private LocationListBean location_list;
-    private int status;    // =0时，添加成功；=1时，添加失败，失败原因在 remark里
+    private int status;    // =0时，添加成功；=1时，添加失败，失败原因在 remark 里
     private String remark;
 
     public String getBcode() {

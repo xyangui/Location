@@ -23,6 +23,7 @@ public interface Api {
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/add")
     Flowable<String> addLocation(@Path("bcode") String bcode, @Path("location") String location);
 
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPH12SC102-0/location/M12/act/addAll"
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll")
     Flowable<String> addAllLocation(@Path("bcode") String bcode, @Path("location") String location);
 

@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.ToastUtil;
 import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Location.LocationGet;
+import com.icollection.location.Data.Location.LocationGetEB;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
 import com.icollection.location.ShopStock.ShopStockActivity;
@@ -374,7 +376,70 @@ public class LocationActivity extends NetActivity {
                         .addAllLocation(barcode, location.toUpperCase()),
                 strHtml -> {
 
-                    jsonToShow(strHtml);
+                    List<LocationGet> list_in_screen = seriesAdapter.getData();
+
+                    //jsonToShow(strHtml);
+
+                    if (strHtml.isEmpty() || strHtml.equals("null")) {
+                        ToastUtil.showShort(this, "No items were found!");
+                    }
+
+                    Gson gson = new Gson();
+                    List<LocationGet> list_from_json = gson.fromJson(strHtml, new TypeToken<List<LocationGet>>() {
+                    }.getType());
+
+                    String listBcode_add_fail = "";
+
+                    for (LocationGet bean_from_json : list_from_json) {
+
+                        String Bcode_from_json = bean_from_json.getBcode().trim();
+                        String Bcode_from_edit = editBarcode.getText().toString().trim();
+                        if (Bcode_from_json.equals(Bcode_from_edit)) {
+                            String location_from_json = bean_from_json.getLocation_list().get_PL_Location();
+                            editLocation.setText(location_from_json);
+                            textDescription.setText(bean_from_json.getDescription());
+                        }
+
+                        //把修改成功的item，改成新的位置
+                        if(bean_from_json.getStatus() == 0){ //success
+
+                            for (LocationGet bean_in_screen : list_in_screen) {
+
+                                if(bean_in_screen.getBcode().trim().equals(Bcode_from_json)){
+
+                                    List<String> list = new ArrayList<>();
+                                    list.add("PL");
+                                    list.add(bean_from_json.getLocation_list().get_PL_Location());
+
+                                    List<List<String>> listlist = new ArrayList<>();
+                                    listlist.add(list);
+
+                                    LocationGet.LocationListBean bean = new LocationGet.LocationListBean();
+                                    bean.setCode_location(listlist);
+
+                                    bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
+                                }
+                            }
+                        } else { // =0时，添加成功；=1时，添加失败
+
+                            if(listBcode_add_fail.isEmpty()){
+                                listBcode_add_fail = Bcode_from_json;
+                            } else {
+                                listBcode_add_fail = listBcode_add_fail + ";" + Bcode_from_json;
+                            }
+                        }
+                    }
+
+                    if(!listBcode_add_fail.isEmpty()){
+
+                        new MaterialDialog.Builder(LocationActivity.this)
+                                .title("Warning")
+                                .content(listBcode_add_fail + " already have location, Use EDIT_ALL!")
+                                .positiveText("OK")
+                                .show();
+                    }
+
+                    seriesAdapter.notifyDataSetChanged();
                 });
     }
 

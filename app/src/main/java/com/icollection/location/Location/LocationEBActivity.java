@@ -136,7 +136,7 @@ public class LocationEBActivity extends NetActivity {
 
     //网页访问loction地址
     public static final String WEB_ADDRESS
-            = "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/edit-product-location/barcode/";
+            = "http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/edit-product-location/barcode/APIPH12SC102-0";
 
     // WEB 按钮
     @OnClick(R.id.btn_enter)
@@ -191,11 +191,11 @@ public class LocationEBActivity extends NetActivity {
                 });
     }
 
-    private List<LocationGetEB> jsonToShow(String strHtml) {
+    private void jsonToShow(String strHtml) {
 
         if (strHtml.isEmpty() || strHtml.equals("null")) {
             ToastUtil.showShort(this, "No items were found!");
-            return null;
+            return;
         }
 
         Gson gson = new Gson();
@@ -215,8 +215,6 @@ public class LocationEBActivity extends NetActivity {
         }
 
         seriesAdapter.setNewData(locationGets);
-
-        return locationGets;
     }
 
     @OnClick(R.id.btn_edit)
@@ -338,40 +336,41 @@ public class LocationEBActivity extends NetActivity {
                         .addAllLocationEB(barcode, location.toUpperCase()),
                 strHtml -> {
 
-                    List<LocationGetEB> locationGetEBs_old = seriesAdapter.getData();
+                    List<LocationGetEB> list_in_screen = seriesAdapter.getData();
 
 //                    jsonToShow(strHtml);
 
                     if (strHtml.isEmpty() || strHtml.equals("null")) {
                         ToastUtil.showShort(this, "No items were found!");
-//                        return null;
                     }
 
                     Gson gson = new Gson();
-                    List<LocationGetEB> locationGets = gson.fromJson(strHtml, new TypeToken<List<LocationGetEB>>() {
+                    List<LocationGetEB> list_from_json = gson.fromJson(strHtml, new TypeToken<List<LocationGetEB>>() {
                     }.getType());
 
-                    for (LocationGetEB locationGet : locationGets) {
+                    String listBcode_add_fail = "";
 
-                        String str = locationGet.getBcode().trim();
-                        String str2 = editBarcode.getText().toString().trim();
-                        if (str.equals(str2)) {
-                            String locationEB = locationGet.getLocation_list().get_EB_Location();
+                    for (LocationGetEB bean_from_json : list_from_json) {
+
+                        String Bcode_from_json = bean_from_json.getBcode().trim();
+                        String Bcode_from_edit = editBarcode.getText().toString().trim();
+                        if (Bcode_from_json.equals(Bcode_from_edit)) {
+                            String locationEB = bean_from_json.getLocation_list().get_EB_Location();
                             editLocation.setText(locationEB);
-                            textDescription.setText(locationGet.getDescription());
+                            textDescription.setText(bean_from_json.getDescription());
                             //break;
                         }
 
-                        if(locationGet.getStatus() == 0){ //success
+                        //把修改成功的item，改成新的位置
+                        if(bean_from_json.getStatus() == 0){ //success
 
-                            for (LocationGetEB locationGet_old : locationGetEBs_old) {
+                            for (LocationGetEB bean_in_screen : list_in_screen) {
 
-                                //把修改成功的item，改成新的位置
-                                if(locationGet_old.getBcode().trim().equals(str)){
+                                if(bean_in_screen.getBcode().trim().equals(Bcode_from_json)){
 
                                     List<String> list = new ArrayList<>();
                                     list.add("EB");
-                                    list.add(locationGet.getLocation_list().get_EB_Location());
+                                    list.add(bean_from_json.getLocation_list().get_EB_Location());
 
                                     List<List<String>> listlist = new ArrayList<>();
                                     listlist.add(list);
@@ -379,10 +378,26 @@ public class LocationEBActivity extends NetActivity {
                                     LocationGetEB.LocationListBean bean = new LocationGetEB.LocationListBean();
                                     bean.setCode_location(listlist);
 
-                                    locationGet_old.setLocation_list(bean);//修改locationGet_old，相当于修改数组内的值
+                                    bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
                                 }
                             }
+                        } else { // =0时，添加成功；=1时，添加失败
+
+                            if(listBcode_add_fail.isEmpty()){
+                                listBcode_add_fail = Bcode_from_json;
+                            } else {
+                                listBcode_add_fail = listBcode_add_fail + ";" + Bcode_from_json;
+                            }
                         }
+                    }
+
+                    if(!listBcode_add_fail.isEmpty()){
+
+                        new MaterialDialog.Builder(LocationEBActivity.this)
+                                .title("Warning")
+                                .content(listBcode_add_fail + " already have location, Use EDIT_ALL!")
+                                .positiveText("OK")
+                                .show();
                     }
 
                     seriesAdapter.notifyDataSetChanged();
