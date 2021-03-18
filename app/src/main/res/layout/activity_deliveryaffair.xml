@@ -289,7 +289,7 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--hpic-->
+        <!--gbic-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_gbic"
             android:layout_width="match_parent"
@@ -335,7 +335,7 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--hpic-->
+        <!--fgic-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_fgic"
             android:layout_width="match_parent"
@@ -381,7 +381,7 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--hpic-->
+        <!--cbic-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_cbic"
             android:layout_width="match_parent"

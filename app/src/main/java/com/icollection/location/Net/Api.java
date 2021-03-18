@@ -29,7 +29,6 @@ public interface Api {
     Flowable<String> addAllLocation(@Path("bcode") String bcode, @Path("location") String location);
 
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z222/act/edit_Ebay"
-    @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/edit_Ebay")
     Flowable<String> editLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z222/act/editAll_Ebay"
@@ -43,4 +42,8 @@ public interface Api {
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPH12SC102-0/location/Z31/act/addAll_Ebay"
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll_Ebay")
     Flowable<String> addAllLocationEB(@Path("bcode") String bcode, @Path("location") String location);
+
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPIC/orderno/PDHPIC20210315"
+    @GET("jsonfunction/take-order/shop/{shopname}/orderno/{PD_shopname_date}")
+    Flowable<String> getOrderData(@Path("shopname") String shopname, @Path("PD_shopname_date") String PD_shopname_date);
 }

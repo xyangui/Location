@@ -8,6 +8,7 @@ import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Delivery.DeliveryAffairActivity;
 import com.icollection.location.Location.LocationActivity;
 import com.icollection.location.Location.LocationEBActivity;
+import com.icollection.location.Order.ShopListActivity;
 import com.icollection.location.ShopStock.ShopStockActivity;
 
 import java.util.List;
@@ -32,7 +33,6 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
         BGAQRCodeUtil.setDebug(true);
 
         Realm.init(this);
-
     }
 
     @OnClick(R.id.constraint_location)
@@ -53,9 +53,17 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
         startActivity(intent);
     }
 
-    @OnClick(R.id.constraint_order)
-    public void Order() {
-        Intent intent = new Intent(this, LocationActivity.class);
+    @OnClick(R.id.constraint_order_weekly)
+    public void OrderWeekly() {
+        Intent intent = new Intent(this, ShopListActivity.class);
+        intent.putExtra("MondayOrFriday", "Monday");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.constraint_order_extra)
+    public void OrderExtra() {
+        Intent intent = new Intent(this, ShopListActivity.class);
+        intent.putExtra("MondayOrFriday", "Friday");
         startActivity(intent);
     }
 

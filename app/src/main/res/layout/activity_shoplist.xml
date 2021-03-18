@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Order.ShopListActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/frame_toolbar"
@@ -16,24 +16,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--<ImageView-->
-            <!--android:id="@+id/image_view_back"-->
-            <!--android:layout_width="20dp"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:src="@mipmap/icon_back"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/image_view_back"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_back2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_back_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
+            android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="ICOLLECTION"
+            android:layout_marginEnd="8dp"
+            android:text="Weekly Order List"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -53,17 +62,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frame_toolbar">
 
+        <!--WBPC-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_location"
+            android:id="@+id/constraint_wbpc"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_interest"
+                android:id="@+id/image_view_wbpc"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_party"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,12 +83,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Location"
+                android:text="WBPC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_interest"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_wbpc"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_wbpc_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_wbpc_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_wbpc_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
@@ -98,17 +121,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
+        <!--hpic-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_location_eb"
+            android:id="@+id/constraint_hpic"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_interest_eb"
+                android:id="@+id/image_view_hpic"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_party"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -118,12 +142,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="EBay Location"
+                android:text="HPIC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_interest_eb"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_hpic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_hpic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_hpic_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_hpic_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
@@ -143,18 +180,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--库存-->
+        <!--epic-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_shop_stock"
+            android:id="@+id/constraint_epic"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_shop_stock"
+                android:id="@+id/image_view_epic"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_cooperation"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -164,12 +201,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Shop Stock"
+                android:text="EPIC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_shop_stock"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_epic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_epic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_epic_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_epic_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
@@ -189,18 +239,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--订单-->
+        <!--gbic-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_order_weekly"
+            android:id="@+id/constraint_gbic"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_party"
+                android:id="@+id/image_view_gbic"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -210,12 +260,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Weekly Order"
+                android:text="GBIC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_party"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_gbic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_gbic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_gbic_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_gbic_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
@@ -235,18 +298,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--订单-->
+        <!--nlic-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_order_extra"
+            android:id="@+id/constraint_nlic"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_party2"
+                android:id="@+id/image_view_nlic"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -256,12 +319,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Extra Order"
+                android:text="NLIC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_party2"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_nlic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_nlic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_nlic_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_nlic_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
@@ -281,18 +357,18 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
-        <!--送货-->
+        <!--fgic-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_delivery"
+            android:id="@+id/constraint_fgic"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <ImageView
-                android:id="@+id/image_view_like"
+                android:id="@+id/image_view_fgic"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_interest"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -302,12 +378,143 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Delivery"
+                android:text="FGIC"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image_view_like"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_fgic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_fgic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_fgic_arrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_view_fgic_arrow"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="25dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@mipmap/arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--low gray line-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/mediumgray" />
+
+        <!--cbic-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_cbic"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/image_view_cbic"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/user_advice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="CBIC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_cbic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_cbic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_cbic_arrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_cbic_arrow"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="25dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@mipmap/arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--low gray line-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/mediumgray" />
+
+        <!--bsic-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_bsic"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/image_view_bsic"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/user_advice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="BSIC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_bsic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_bsic_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:text="READY"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_bsic_arrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_bsic_arrow"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="25dp"
