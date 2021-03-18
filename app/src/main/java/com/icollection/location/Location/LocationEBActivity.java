@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.ToastUtil;
 import com.icollection.location.Base.TransInformation;
+import com.icollection.location.Data.Location.LocationGet;
 import com.icollection.location.Data.Location.LocationGetEB;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
@@ -282,14 +283,80 @@ public class LocationEBActivity extends NetActivity {
         disposableAddWithProgress(
                 RemoteLocation
                         .getInstance()
-                        .editAllLocationEB(barcode, location.toUpperCase())
-                        .flatMap(strHtml -> {
-                            return RemoteLocation
-                                    .getInstance().getLocation(barcode);
-                        }),
+                        .editAllLocationEB(barcode, location.toUpperCase()),
+//                        .flatMap(strHtml -> {
+//                            return RemoteLocation
+//                                    .getInstance().getLocation(barcode);
+//                        }),
                 strHtml -> {
 
-                    jsonToShow(strHtml);
+                    List<LocationGetEB> list_in_screen = seriesAdapter.getData();
+
+                    //jsonToShow(strHtml);
+
+                    if (strHtml.isEmpty() || strHtml.equals("null")) {
+                        ToastUtil.showShort(this, "No items were found!");
+                        return;
+                    }
+
+                    Gson gson = new Gson();
+                    List<LocationGetEB> list_from_json = gson.fromJson(strHtml, new TypeToken<List<LocationGetEB>>() {
+                    }.getType());
+
+                    String listBcode_add_fail = "";
+
+                    for (LocationGetEB bean_from_json : list_from_json) {
+
+                        String Bcode_from_json = bean_from_json.getBcode().trim();
+//                        String Bcode_from_edit = editBarcode.getText().toString().trim();
+//                        if (Bcode_from_json.equals(Bcode_from_edit)) {
+//                            String locationEB = bean_from_json.getLocation_list().get_EB_Location();
+//                            editLocation.setText(locationEB);
+//                            textDescription.setText(bean_from_json.getDescription());
+//                            //break;
+//                        }
+
+                        //把修改成功的item，改成新的位置
+                        if(bean_from_json.getStatus() == 0){ //success
+
+                            for (LocationGetEB bean_in_screen : list_in_screen) {
+
+                                if(bean_in_screen.getBcode().trim().equals(Bcode_from_json)){
+
+                                    List<String> list = new ArrayList<>();
+                                    list.add("EB");
+                                    list.add(bean_from_json.getLocation_list().get_EB_Location());
+
+                                    List<List<String>> listlist = new ArrayList<>();
+                                    listlist.add(list);
+
+                                    LocationGetEB.LocationListBean bean = new LocationGetEB.LocationListBean();
+                                    bean.setCode_location(listlist);
+
+                                    bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
+                                    break;
+                                }
+                            }
+                        } else { // =0时，添加成功；=1时，添加失败
+
+                            if(listBcode_add_fail.isEmpty()){
+                                listBcode_add_fail = Bcode_from_json;
+                            } else {
+                                listBcode_add_fail = listBcode_add_fail + ";" + Bcode_from_json;
+                            }
+                        }
+                    } // for finish
+
+                    if(!listBcode_add_fail.isEmpty()){
+
+                        new MaterialDialog.Builder(LocationEBActivity.this)
+                                .title("Warning")
+                                .content(listBcode_add_fail + " has no location yet, Use ADD or ADD_ALL!")
+                                .positiveText("OK")
+                                .show();
+                    }
+
+                    seriesAdapter.notifyDataSetChanged();
                 });
     }
 
@@ -350,6 +417,7 @@ public class LocationEBActivity extends NetActivity {
 
                     if (strHtml.isEmpty() || strHtml.equals("null")) {
                         ToastUtil.showShort(this, "No items were found!");
+                        return;
                     }
 
                     Gson gson = new Gson();
@@ -387,6 +455,7 @@ public class LocationEBActivity extends NetActivity {
                                     bean.setCode_location(listlist);
 
                                     bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
+                                    break;
                                 }
                             }
                         } else { // =0时，添加成功；=1时，添加失败
@@ -397,13 +466,13 @@ public class LocationEBActivity extends NetActivity {
                                 listBcode_add_fail = listBcode_add_fail + ";" + Bcode_from_json;
                             }
                         }
-                    }
+                    } // for finish
 
                     if(!listBcode_add_fail.isEmpty()){
 
                         new MaterialDialog.Builder(LocationEBActivity.this)
                                 .title("Warning")
-                                .content(listBcode_add_fail + " already have location, Use EDIT_ALL!")
+                                .content(listBcode_add_fail + " already have location, Use EDIT or EDIT_ALL!")
                                 .positiveText("OK")
                                 .show();
                     }

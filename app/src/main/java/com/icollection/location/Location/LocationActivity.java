@@ -325,14 +325,80 @@ public class LocationActivity extends NetActivity {
         disposableAddWithProgress(
                 RemoteLocation
                         .getInstance()
-                        .editAllLocation(barcode, location.toUpperCase())
-                        .flatMap(strHtml -> {
-                            return RemoteLocation
-                                    .getInstance().getLocation(barcode);
-                        }),
+                        .editAllLocation(barcode, location.toUpperCase()),
+//                        .flatMap(strHtml -> {
+//                            return RemoteLocation
+//                                    .getInstance().getLocation(barcode);
+//                        }),
                 strHtml -> {
 
-                    jsonToShow(strHtml);
+                    List<LocationGet> list_in_screen = seriesAdapter.getData();
+
+                    //jsonToShow(strHtml);
+
+                    if (strHtml.isEmpty() || strHtml.equals("null")) {
+                        ToastUtil.showShort(this, "No items were found!");
+                        return;
+                    }
+
+                    Gson gson = new Gson();
+                    List<LocationGet> list_from_json = gson.fromJson(strHtml, new TypeToken<List<LocationGet>>() {
+                    }.getType());
+
+                    String listBcode_add_fail = "";
+
+                    for (LocationGet bean_from_json : list_from_json) {
+
+                        String Bcode_from_json = bean_from_json.getBcode().trim();
+//                        String Bcode_from_edit = editBarcode.getText().toString().trim();
+//                        if (Bcode_from_json.equals(Bcode_from_edit)) {
+//                            String locationPL = bean_from_json.getLocation_list().get_PL_Location();
+//                            editLocation.setText(locationPL);
+//                            textDescription.setText(bean_from_json.getDescription());
+//                            //break;
+//                        }
+
+                        //把修改成功的item，改成新的位置
+                        if(bean_from_json.getStatus() == 0){ //success
+
+                            for (LocationGet bean_in_screen : list_in_screen) {
+
+                                if(bean_in_screen.getBcode().trim().equals(Bcode_from_json)){
+
+                                    List<String> list = new ArrayList<>();
+                                    list.add("PL");
+                                    list.add(bean_from_json.getLocation_list().get_PL_Location());
+
+                                    List<List<String>> listlist = new ArrayList<>();
+                                    listlist.add(list);
+
+                                    LocationGet.LocationListBean bean = new LocationGet.LocationListBean();
+                                    bean.setCode_location(listlist);
+
+                                    bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
+                                    break;
+                                }
+                            }
+                        } else { // =0时，添加成功；=1时，添加失败
+
+                            if(listBcode_add_fail.isEmpty()){
+                                listBcode_add_fail = Bcode_from_json;
+                            } else {
+                                listBcode_add_fail = listBcode_add_fail + ";" + Bcode_from_json;
+                            }
+                        }
+                    } // for finish
+
+                    if(!listBcode_add_fail.isEmpty()){
+
+                        new MaterialDialog.Builder(LocationActivity.this)
+                                .title("Warning")
+                                .content(listBcode_add_fail + " has no location yet, Use ADD or ADD_ALL!")
+                                .positiveText("OK")
+                                .show();
+                    }
+
+                    seriesAdapter.notifyDataSetChanged();
                 });
     }
 
@@ -392,6 +458,7 @@ public class LocationActivity extends NetActivity {
 
                     if (strHtml.isEmpty() || strHtml.equals("null")) {
                         ToastUtil.showShort(this, "No items were found!");
+                        return;
                     }
 
                     Gson gson = new Gson();
@@ -428,6 +495,7 @@ public class LocationActivity extends NetActivity {
                                     bean.setCode_location(listlist);
 
                                     bean_in_screen.setLocation_list(bean);//修改bean_in_screen，相当于修改数组内的值
+                                    break;
                                 }
                             }
                         } else { // =0时，添加成功；=1时，添加失败
@@ -444,7 +512,7 @@ public class LocationActivity extends NetActivity {
 
                         new MaterialDialog.Builder(LocationActivity.this)
                                 .title("Warning")
-                                .content(listBcode_add_fail + " already have location, Use EDIT_ALL!")
+                                .content(listBcode_add_fail + " already have location, Use EDIT or EDIT_ALL!")
                                 .positiveText("OK")
                                 .show();
                     }
