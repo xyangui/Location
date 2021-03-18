@@ -8,7 +8,7 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/APIPH12SC102-0"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/DCCTC-111-0"
     @GET("stock/json-check-location/barcode2/{bcode}")
     Flowable<String> getLocation(@Path("bcode") String bcode);
 
