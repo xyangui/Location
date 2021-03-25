@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.ToastUtil;
 import com.icollection.location.Data.Location.RemoteLocation;
+import com.icollection.location.Data.Order.OrderNoRepository;
 import com.icollection.location.Data.Order.RemoteOrder;
 import com.icollection.location.R;
 
@@ -41,7 +42,7 @@ public class ShopListActivity extends NetActivity {
     TextView BSIC_Ready;
 
 
-    private String order_date;
+    private String order_date;//星期一或者星期五的日期，例如：20210315
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,44 +62,40 @@ public class ShopListActivity extends NetActivity {
             if(str.equals("Monday")) {
 
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                order_date = simpleDateFormat.format(calendar.getTime());
+                order_date = simpleDateFormat.format(calendar.getTime());//星期一的日期，例如：20210315
                 textTitle.setText("Weekly Order List");
 
             } else {
 
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                order_date = simpleDateFormat.format(calendar.getTime());
+                order_date = simpleDateFormat.format(calendar.getTime());//星期五的日期，例如：20210319
                 textTitle.setText("Extra Order List");
             }
 
-            askForRemote("WBPC", "PDWBPC20210315", WBPC_Ready);
-            askForRemote("HPIC", "PDHPIC20210319", HPIC_Ready);
-            askForRemote("EPIC", "PDEPIC20210322", EPIC_Ready);
-            askForRemote("GBIC", "PDGBIC20210315", GBIC_Ready);
-            askForRemote("NLIC", "PDNLIC20210319", NLIC_Ready);
-            askForRemote("FGIC", "PDFGIC20210322", FGIC_Ready);
-            askForRemote("CBIC", "PDCBIC20210319", CBIC_Ready);
-            askForRemote("BSIC", "PDBSIC20210322", BSIC_Ready);
+            askForRepository("PDWBPC" + order_date, WBPC_Ready);
+            askForRepository("PDHPIC" + order_date, HPIC_Ready);
+            askForRepository("PDEPIC" + order_date, EPIC_Ready);
+            askForRepository("PDGBIC" + order_date, GBIC_Ready);
+            askForRepository("PDNLIC" + order_date, NLIC_Ready);
+            askForRepository("PDFGIC" + order_date, FGIC_Ready);
+            askForRepository("PDCBIC" + order_date, CBIC_Ready);
+            askForRepository("PDBSIC" + order_date, BSIC_Ready);
         }
     }
 
-    private void askForRemote(String shopname, String orderno, TextView textView) {
+    private void askForRepository(String orderno, TextView textView) {
         disposableAddWithoutProgress(
-                RemoteOrder
+                OrderNoRepository
                         .getInstance()
-                        .getOrderData(shopname, orderno),
-                strHtml -> {
+                        .getOrderNo(orderno),
+                isReady -> {
 
-                    if (strHtml.isEmpty() || strHtml.equals("null")) {
-                        textView.setVisibility(View.INVISIBLE);
+                    if (isReady) {
+                        textView.setVisibility(View.VISIBLE);
                         return;
                     }
 
-                    textView.setVisibility(View.VISIBLE);
-
-                    //String str2 = strHtml;
-                    //String str3 = strHtml;
-                    //jsonToShow(strHtml);
+                    textView.setVisibility(View.INVISIBLE);
                 });
     }
 
@@ -106,6 +103,7 @@ public class ShopListActivity extends NetActivity {
     public void imageViewBack() {
         finish();
     }
+
 
 
 }

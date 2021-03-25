@@ -23,28 +23,27 @@ public class OrderNoLocal {
     /**
      * 获取指定订单
      */
-    public Flowable<List<OrderNo>> getOrderNoList(String orderNo) {
+    public Flowable<OrderNo> getOrderNoList(String strOrderNo) {
 
         //Realm数据库
         Realm realm = Realm.getDefaultInstance();
 
         RealmResults<OrderNo> resultsAll = realm
                 .where(OrderNo.class)
-                .equalTo("orderNo", orderNo)
+                .equalTo("orderNo_id", strOrderNo)
                 .findAll();
 
         List<OrderNo> copied = realm.copyFromRealm(resultsAll);
-
         realm.close();
 
         if (copied.isEmpty()) {
             return Flowable.empty(); //必须为空，才能请求网络数据
         }
 
-        return Flowable
-                .fromIterable(copied)
-                .toList()
-                .toFlowable();
+//        OrderNo orderNo = new OrderNo();
+//        orderNo.setOrderNo_id(strOrderNo);
+
+        return Flowable.just(copied.get(0));
     }
 
     /**

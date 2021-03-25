@@ -43,7 +43,7 @@ public interface Api {
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll_Ebay")
     Flowable<String> addAllLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPIC/orderno/PDHPIC20210315"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/EPIC/orderno/PDEPIC20210322"
     @GET("jsonfunction/take-order/shop/{shopname}/orderno/{PD_shopname_date}")
     Flowable<String> getOrderData(@Path("shopname") String shopname, @Path("PD_shopname_date") String PD_shopname_date);
 }
