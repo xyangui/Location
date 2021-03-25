@@ -35,7 +35,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -100,10 +100,177 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="Description"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_current_bcode" />
+
+    <TextView
+        android:id="@+id/textview_stock_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Shop Stock"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_description" />
+
+    <TextView
+        android:id="@+id/textview_stock_shop_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_stock_shop"
+        app:layout_constraintTop_toTopOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_stock_wh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="WH Stock"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_stock_shop_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_stock_wh_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_stock_wh"
+        app:layout_constraintTop_toTopOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_max_sold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="Max Sold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_stock_wh_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_max_sold_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_actual_send_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_shop_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Shop Order"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_stock_shop" />
+
+    <TextView
+        android:id="@+id/textview_shop_order_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_shop_order"
+        app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="Result"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_shop_order_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_result_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_stock_wh_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_actual_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="Actual Send"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_result_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_actual_send_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_actual_send"
+        app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="Location"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_location_value"
+        app:layout_constraintEnd_toStartOf="@+id/textview_location_value"
+        app:layout_constraintTop_toTopOf="@+id/textview_location_value" />
+
+    <TextView
+        android:id="@+id/textview_location_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="AAA"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textview_actual_send_value"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Remark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shop_order" />
+
+    <TextView
+        android:id="@+id/textview_remark_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Remark"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_remark"
+        app:layout_constraintTop_toTopOf="@+id/textview_remark" />
 
     <EditText
         android:id="@+id/edit_barcode"
@@ -117,7 +284,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_clear"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_description" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_location_value" />
 
     <Button
         android:id="@+id/btn_clear"

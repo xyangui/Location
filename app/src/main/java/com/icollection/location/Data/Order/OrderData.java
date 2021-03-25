@@ -6,11 +6,11 @@ public class OrderData {
 
     private int status; // ==0时，没有订单的意思
     private String code_product;
-    private String title;
+    private String title; //description
     private String max_sold;
     private String stock_shop;
     private String stock_wh;
-    private String rec_qty;
+    private String rec_qty; //建议，相当于原订单的result
     private String shop_actual_order;
     private String actual_send;
     private Object location;  //兼容  没有订单时返回： ...,"location":"null",...

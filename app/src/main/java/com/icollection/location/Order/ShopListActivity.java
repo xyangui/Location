@@ -110,7 +110,7 @@ public class ShopListActivity extends NetActivity {
     public void WBPC() {
         if(WBPC_Ready.getVisibility() == View.VISIBLE) {
             Intent intent = new Intent(this, OrderCollectActivity.class);
-            intent.putExtra("ShopName", "WBPC");
+            intent.putExtra("OrderNo", "PDWBPC" + order_date);
             startActivity(intent);
         }
     }
@@ -119,7 +119,52 @@ public class ShopListActivity extends NetActivity {
     public void HPIC() {
         if(HPIC_Ready.getVisibility() == View.VISIBLE) {
             Intent intent = new Intent(this, OrderCollectActivity.class);
-            intent.putExtra("ShopName", "HPIC");
+            intent.putExtra("OrderNo", "PDHPIC" + order_date);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_epic)
+    public void EPIC() {
+        if(EPIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("OrderNo", "PDEPIC" + order_date);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_gbic)
+    public void GBIC() {
+        if(GBIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("OrderNo", "PDGBIC" + order_date);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_nlic)
+    public void NLIC() {
+        if(NLIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("OrderNo", "PDNLIC" + order_date);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_fgic)
+    public void FGIC() {
+        if(FGIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("OrderNo", "PDFGIC" + order_date);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_cbic)
+    public void CBIC() {
+        if(CBIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("OrderNo", "PDCBIC" + order_date);
             startActivity(intent);
         }
     }
@@ -128,7 +173,7 @@ public class ShopListActivity extends NetActivity {
     public void BSIC() {
         if(BSIC_Ready.getVisibility() == View.VISIBLE) {
             Intent intent = new Intent(this, OrderCollectActivity.class);
-            intent.putExtra("ShopName", "BSIC");
+            intent.putExtra("OrderNo", "PDBSIC" + order_date);
             startActivity(intent);
         }
     }
