@@ -96,10 +96,12 @@ public class OrderNoRepository {
 
         return OrderNo_Remote
                 .getOrderData(strOrderNo)
-                .flatMap(object -> {
+                .flatMap(objects -> {
 
-                    if(object.equals("null")){
-                        return Flowable.just(false);
+                    if(objects.size() == 1){  //[{"status":0,"code_product":"null".. 代表没有订单
+                        if(objects.get(0).getStatus() == 0){
+                            return Flowable.just(false);
+                        }
                     }
 
                     OrderNo orderNo = new OrderNo();

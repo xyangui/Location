@@ -1,6 +1,9 @@
 package com.icollection.location.Net;
 
 import com.icollection.location.Data.Location.LocationGet;
+import com.icollection.location.Data.Order.OrderData;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -45,5 +48,7 @@ public interface Api {
 
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/EPIC/orderno/PDEPIC20210322"
     @GET("jsonfunction/take-order/shop/{shopname}/orderno/{PD_shopname_date}")
-    Flowable<String> getOrderData(@Path("shopname") String shopname, @Path("PD_shopname_date") String PD_shopname_date);
+    Flowable<List<OrderData>> getOrderData(@Path("shopname") String shopname, @Path("PD_shopname_date") String PD_shopname_date);
+
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/orderno/PDEPIC20210322/barcode/APIPH12SC100-13/num/5"
 }

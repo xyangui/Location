@@ -1,5 +1,6 @@
 package com.icollection.location.Order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -105,5 +106,31 @@ public class ShopListActivity extends NetActivity {
     }
 
 
+    @OnClick(R.id.constraint_wbpc)
+    public void WBPC() {
+        if(WBPC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("ShopName", "WBPC");
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_hpic)
+    public void HPIC() {
+        if(HPIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("ShopName", "HPIC");
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.constraint_bsic)
+    public void BSIC() {
+        if(BSIC_Ready.getVisibility() == View.VISIBLE) {
+            Intent intent = new Intent(this, OrderCollectActivity.class);
+            intent.putExtra("ShopName", "BSIC");
+            startActivity(intent);
+        }
+    }
 
 }

@@ -49,6 +49,8 @@
 
         <activity android:name=".Order.ShopListActivity" />
 
+        <activity android:name=".Order.OrderCollectActivity" />
+
     </application>
 
 </manifest>

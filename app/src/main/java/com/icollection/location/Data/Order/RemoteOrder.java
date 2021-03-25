@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.Net.Http;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 public class RemoteOrder {
@@ -19,7 +21,7 @@ public class RemoteOrder {
         return INSTANCE;
     }
 
-    public Flowable<String> getOrderData(@NonNull String PD_shopname_date) {
+    public Flowable<List<OrderData>> getOrderData(@NonNull String PD_shopname_date) {
 
         //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPIC/orderno/PDHPIC20210315"
         String shopname = PD_shopname_date.substring(2,6);
