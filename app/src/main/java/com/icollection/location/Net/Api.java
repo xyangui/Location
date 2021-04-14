@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/DCCTC-111-0"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-check-location/barcode2/8809745631577"
     @GET("stock/json-check-location/barcode2/{bcode}")
     Flowable<String> getLocation(@Path("bcode") String bcode);
 
@@ -31,7 +31,9 @@ public interface Api {
     @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/addAll")
     Flowable<String> addAllLocation(@Path("bcode") String bcode, @Path("location") String location);
 
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z222/act/edit_Ebay"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/OTHAICUNI-100-0/location/J1399/act/edit_Ebay"
+    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/8809745631577/location/T1222/act/edit_Ebay"
+    @GET("stock/json-edit-location/barcode/{bcode}/location/{location}/act/edit_Ebay")
     Flowable<String> editLocationEB(@Path("bcode") String bcode, @Path("location") String location);
 
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/json-edit-location/barcode/APIPHXRLC103-0/location/Z222/act/editAll_Ebay"
