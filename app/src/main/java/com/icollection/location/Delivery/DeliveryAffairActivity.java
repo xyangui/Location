@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Delivery.DeliveryAffair.DeliveryActivity;
+import com.icollection.location.Delivery.RMA.RMAActivity;
 import com.icollection.location.Delivery.Store.StoreDeliveryActivity;
 import com.icollection.location.R;
 
@@ -39,37 +40,57 @@ public class DeliveryAffairActivity extends NetActivity {
 
     @OnClick(R.id.constraint_wbpc)
     public void wbpc() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "WBPC");
         startActivity(intent);
     }
 
     @OnClick(R.id.constraint_hpic)
     public void hpic() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "HPIC");
         startActivity(intent);
     }
 
     @OnClick(R.id.constraint_epic)
     public void epic() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "EPIC");
         startActivity(intent);
     }
 
     @OnClick(R.id.constraint_gbic)
     public void gbic() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "GBIC");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.constraint_nlic)
+    public void nlic() {
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "NLIC");
         startActivity(intent);
     }
 
     @OnClick(R.id.constraint_fgic)
     public void fgic() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "FGIC");
         startActivity(intent);
     }
 
     @OnClick(R.id.constraint_cbic)
     public void cbic() {
-        Intent intent = new Intent(this, StoreDeliveryActivity.class);
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "CBIC");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.constraint_bsic)
+    public void bsic() {
+        Intent intent = new Intent(this, RMAActivity.class);
+        intent.putExtra("ShopName", "BSIC");
         startActivity(intent);
     }
 }

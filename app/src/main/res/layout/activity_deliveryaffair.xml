@@ -162,7 +162,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -208,7 +208,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -254,7 +254,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -300,7 +300,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -335,6 +335,52 @@
             android:layout_marginRight="20dp"
             android:background="@color/mediumgray" />
 
+        <!--nlic-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_nlic"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/image_view_nlic"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/user_advice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="NLIC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_nlic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="25dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@mipmap/arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--low gray line-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/mediumgray" />
+
         <!--fgic-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_fgic"
@@ -346,7 +392,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -392,7 +438,7 @@
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="30dp"
-                android:src="@mipmap/user_store_name"
+                android:src="@mipmap/user_advice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -405,6 +451,52 @@
                 android:text="CBIC"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/image_view_cbic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="25dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@mipmap/arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--low gray line-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/mediumgray" />
+
+        <!--bsic-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_bsic"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/image_view_bsic"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/user_advice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="BSIC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/image_view_bsic"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

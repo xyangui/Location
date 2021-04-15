@@ -51,6 +51,8 @@
 
         <activity android:name=".Order.OrderCollectActivity" />
 
+        <activity android:name=".Delivery.RMA.RMAActivity" />
+
     </application>
 
 </manifest>
