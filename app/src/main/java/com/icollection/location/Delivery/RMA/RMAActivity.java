@@ -12,11 +12,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Data.Delivery.PartsRMA;
+import com.icollection.location.Data.Delivery.RemoteDelivery;
+import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +34,10 @@ public class RMAActivity extends NetActivity {
     EditText editBarcode;
     @BindView(R.id.recyclerview_series)
     RecyclerView recyclerviewSeries;
+    @BindView(R.id.edit_stuff_password)
+    EditText editStuffPassword;
+    @BindView(R.id.edit_driver_password)
+    EditText editDriverPassword;
 
     private PartsRMAAdapter partsRMAAdapter;
 
@@ -91,6 +99,45 @@ public class RMAActivity extends NetActivity {
         //editBarcode.setFocusableInTouchMode(true);
         editBarcode.requestFocus();
         editBarcode.setText("");
+    }
+
+    // NO 按钮
+    @OnClick(R.id.btn_no)
+    public void btnNO() {
+        partsRMAAdapter.setNewData(null);
+    }
+
+    // CONFIRM 按钮
+    @OnClick(R.id.btn_confirm)
+    public void btnConfirm() {
+
+        String RMAList = "";
+        List<PartsRMA> partsRMAs = partsRMAAdapter.getData();
+        for(PartsRMA partsRMA : partsRMAs) {
+            if(RMAList.isEmpty()){
+                RMAList = partsRMA.getParts_RMA_num();
+            } else {
+                RMAList = RMAList + "-" + partsRMA.getParts_RMA_num();
+            }
+        }
+
+        String passwordStuff = editStuffPassword.getText().toString();
+        String passwordDriver = editDriverPassword.getText().toString();
+
+        disposableAddWithProgress(
+                RemoteDelivery
+                        .getInstance()
+                        .sendPartsRMAList(RMAList, passwordStuff, passwordDriver),
+                partsRMAResult -> {
+
+                    if(partsRMAResult.get(0).getResult().equals("error")){
+                        new MaterialDialog.Builder(this)
+                                .title("Error")
+                                .content(partsRMAResult.get(0).getMessage())
+                                .positiveText("OK")
+                                .show();
+                    }
+                });
     }
 
     /**
