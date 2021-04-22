@@ -102,9 +102,13 @@ public class OrderData {
 
         public String get_PL_Location(){
 
+            if(PL == null){
+                return "NONE";
+            }
+
             if(PL.size() == 1){
 
-                if(PL.get(0).equals("No location")){
+                if(PL.get(0) == null || PL.get(0).equals("No location")){
                     return "NONE";
                 }
                 return PL.get(0);
