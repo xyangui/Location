@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Delivery.DeliveryAffair.DeliveryActivity;
 import com.icollection.location.Delivery.RMA.RMAActivity;
+import com.icollection.location.Delivery.RMA.RMATestActivity;
 import com.icollection.location.Delivery.Store.StoreDeliveryActivity;
 import com.icollection.location.R;
 
@@ -91,6 +92,13 @@ public class DeliveryAffairActivity extends NetActivity {
     public void bsic() {
         Intent intent = new Intent(this, RMAActivity.class);
         intent.putExtra("ShopName", "BSIC");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.constraint_test)
+    public void test() {
+        Intent intent = new Intent(this, RMATestActivity.class);
+        intent.putExtra("ShopName", "Test");
         startActivity(intent);
     }
 }

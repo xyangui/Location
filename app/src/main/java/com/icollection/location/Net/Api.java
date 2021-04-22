@@ -53,7 +53,6 @@ public interface Api {
     @GET("jsonfunction/take-order/shop/{shopname}/orderno/{PD_shopname_date}")
     Flowable<List<OrderData>> getOrderData(@Path("shopname") String shopname, @Path("PD_shopname_date") String PD_shopname_date);
 
-    //加上店名参数
     //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/transfer-rma/rmaList/75654-54866-44847-448563/p1/123123/p2/2213123"
     @GET("jsonfunction/transfer-rma/rmaList/{rma_list}/p1/{shop_stuff_password}/p2/{driver_password}")
     Flowable<List<PartsRMAResult>> sendPartsRMAList(@Path("rma_list") String rma_list, @Path("shop_stuff_password") String shop_stuff_password, @Path("driver_password") String driver_password);

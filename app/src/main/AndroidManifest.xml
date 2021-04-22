@@ -53,6 +53,8 @@
 
         <activity android:name=".Delivery.RMA.RMAActivity" />
 
+        <activity android:name=".Delivery.RMA.RMATestActivity" />
+
     </application>
 
 </manifest>

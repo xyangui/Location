@@ -6,7 +6,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -16,7 +15,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Data.Delivery.PartsRMA;
 import com.icollection.location.Data.Delivery.RemoteDelivery;
-import com.icollection.location.Data.Location.RemoteLocation;
 import com.icollection.location.R;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RMAActivity extends NetActivity {
+public class RMATestActivity extends NetActivity {
 
     @BindView(R.id.text_view_title)
     TextView textTitle;
@@ -45,7 +43,7 @@ public class RMAActivity extends NetActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);//避免软键盘覆盖屏幕
-        setContentView(R.layout.activity_rma);
+        setContentView(R.layout.activity_rma_test);
         ButterKnife.bind(this);
 
         Bundle bundle = getIntent().getExtras();

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Delivery.RMA.RMAActivity">
+    tools:context=".Delivery.RMA.RMATestActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/frame_toolbar"
@@ -52,6 +52,177 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textview_cash_bag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="Cash Bag Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_toolbar" />
+
+    <EditText
+        android:id="@+id/edit_cash_bag_num"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:gravity="center_vertical|end"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_cash_bag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_cash_bag" />
+
+    <!--low gray line-->
+    <View
+        android:id="@+id/line_cash_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_cash_bag" />
+
+    <TextView
+        android:id="@+id/textview_cust_parts_sys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="Customer Parts System Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_cash_bottom" />
+
+    <TextView
+        android:id="@+id/textview_cust_parts_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="20"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_cust_parts_sys" />
+
+    <TextView
+        android:id="@+id/textview_cust_parts_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="Customer Parts Actual Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_cust_parts_sys" />
+
+    <EditText
+        android:id="@+id/edit_cust_psrts_num"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:gravity="center_vertical|end"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_cust_parts_act"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_cust_parts_act" />
+
+    <!--low gray line-->
+    <View
+        android:id="@+id/line_cust_parts_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_cust_parts_act" />
+
+    <TextView
+        android:id="@+id/textview_case_rma_sys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="RMA Case System Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_cust_parts_bottom" />
+
+    <TextView
+        android:id="@+id/textview_case_rma_sys_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="20"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_case_rma_sys" />
+
+    <TextView
+        android:id="@+id/textview_case_rma_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="RMA Case Actual Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_case_rma_sys" />
+
+    <EditText
+        android:id="@+id/edit_case_rma_act_num"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:gravity="center_vertical|end"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_case_rma_act"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_case_rma_act" />
+
+    <!--low gray line-->
+    <View
+        android:id="@+id/line_case_rma_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_case_rma_act" />
+
+    <TextView
+        android:id="@+id/textview_parts_rma_sys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="RMA Parts System Qty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_case_rma_bottom" />
+
+    <TextView
+        android:id="@+id/textview_parts_rma_sys_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="20"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_parts_rma_sys" />
+
     <EditText
         android:id="@+id/edit_barcode"
         android:layout_width="0dp"
@@ -63,7 +234,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_ok"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_parts_rma_sys" />
 
     <Button
         android:id="@+id/btn_ok"
