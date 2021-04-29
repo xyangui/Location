@@ -37,7 +37,7 @@ public class StoreDeliveryActivity extends NetActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery);
+        setContentView(R.layout.activity_delivery_list);
         ButterKnife.bind(this);
 
         initAdapter();

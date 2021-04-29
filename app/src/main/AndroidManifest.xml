@@ -37,7 +37,7 @@
 
         <activity android:name=".Delivery.CashActivity" />
 
-        <activity android:name=".Delivery.DeliveryAffair.DeliveryActivity" />
+        <activity android:name=".Delivery.DeliveryAffair.DeliveryListActivity" />
 
         <activity android:name=".Delivery.DeliveryAffair.DeliveryProcedureActivity" />
 

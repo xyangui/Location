@@ -27,17 +27,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DeliveryActivity extends NetActivity {
+public class DeliveryListActivity extends NetActivity {
 
     @BindView(R.id.recyclerview_delivery)
     RecyclerView recyclerviewDelivery;
 
-    private DeliveryAdapter deliveryAffairAdapter;
+    private DeliveryListAdapter deliveryAffairAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery);
+        setContentView(R.layout.activity_delivery_list);
         ButterKnife.bind(this);
 
         initAdapter();
@@ -53,7 +53,7 @@ public class DeliveryActivity extends NetActivity {
         recyclerviewDelivery.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewDelivery.setItemAnimator(new DefaultItemAnimator());
 
-        deliveryAffairAdapter = new DeliveryAdapter(new ArrayList<>(), this);
+        deliveryAffairAdapter = new DeliveryListAdapter(new ArrayList<>(), this);
 
         recyclerviewDelivery.setAdapter(deliveryAffairAdapter);
         recyclerviewDelivery.addOnItemTouchListener(new OnItemClickListener() {

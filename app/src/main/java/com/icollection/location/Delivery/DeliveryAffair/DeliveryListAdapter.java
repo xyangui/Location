@@ -10,11 +10,11 @@ import com.icollection.location.R;
 
 import java.util.List;
 
-public class DeliveryAdapter extends BaseQuickAdapter<Cash, BaseViewHolder> {
+public class DeliveryListAdapter extends BaseQuickAdapter<Cash, BaseViewHolder> {
 
     private Context context;
 
-    public DeliveryAdapter(List<Cash> data, Context context) {
+    public DeliveryListAdapter(List<Cash> data, Context context) {
         super(R.layout.item_cash, data);
         this.context = context;
     }
