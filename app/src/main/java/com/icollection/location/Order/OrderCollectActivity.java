@@ -1,9 +1,12 @@
 package com.icollection.location.Order;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
@@ -24,6 +27,8 @@ public class OrderCollectActivity extends NetActivity {
     TextView textTitle;
     @BindView(R.id.edit_barcode)
     EditText editBarcode;
+    @BindView(R.id.edit_qty)
+    EditText editQty;
     @BindView(R.id.textview_previous_bcode)
     TextView textview_previous_bcode;
     @BindView(R.id.textview_previous_num)
@@ -81,6 +86,28 @@ public class OrderCollectActivity extends NetActivity {
                         oneRecordToShow(orderData);
                     });
         }
+
+        editBarcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED || actionId == EditorInfo.IME_ACTION_DONE) {
+                    //手持机扫描出barcode后
+                    String barcode_from_scanner = editBarcode.getText().toString().trim();
+                    String current_bcode = textview_current_bcode.getText().toString().trim();
+
+                    if(barcode_from_scanner.equals(current_bcode)){
+                        editQty.requestFocus();
+                    } else {
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Error")
+                                .content("You collect wrong product, please change to the correct one.")
+                                .positiveText("OK")
+                                .show();
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private void oneRecordToShow(OrderData orderData) {
@@ -103,6 +130,25 @@ public class OrderCollectActivity extends NetActivity {
 
         String location = locationBean.get_PL_Location();
         textview_location_value.setText(location);
+    }
+
+    // X 按钮
+    @OnClick(R.id.btn_clear)
+    public void btnClear() {
+
+        editBarcode.setText("");
+        editQty.setText("");
+
+        editBarcode.requestFocus();
+    }
+
+    // 向下箭头 按钮
+    @OnClick(R.id.image_view_down)
+    public void image_view_down() {
+
+        editBarcode.setText(textview_current_bcode.getText().toString().trim());
+
+        editQty.requestFocus();
     }
 
     @OnClick(R.id.btn_submit)
