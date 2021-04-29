@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DeliveryAddActivity extends NetActivity {
+public class DeliveryProcedureActivity extends NetActivity {
 
     @BindView(R.id.text_date_today)
     TextView textDate;
@@ -28,7 +28,7 @@ public class DeliveryAddActivity extends NetActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery_add);
+        setContentView(R.layout.activity_delivery_procedure);
         ButterKnife.bind(this);
 
         Date currentDate = new Date(System.currentTimeMillis());

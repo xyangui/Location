@@ -16,8 +16,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Data.Cash.Cash;
 import com.icollection.location.Data.Cash.LocalCash;
-import com.icollection.location.Delivery.DeliveryAffair.DeliveryAdapter;
-import com.icollection.location.Delivery.DeliveryAffair.DeliveryAddActivity;
 import com.icollection.location.R;
 
 import java.text.SimpleDateFormat;

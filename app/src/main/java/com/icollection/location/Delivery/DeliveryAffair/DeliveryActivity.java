@@ -16,7 +16,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Data.Cash.Cash;
 import com.icollection.location.Data.Cash.LocalCash;
-import com.icollection.location.Location.LocationActivity;
 import com.icollection.location.R;
 
 import java.text.SimpleDateFormat;
@@ -84,7 +83,7 @@ public class DeliveryActivity extends NetActivity {
 
     @OnClick(R.id.floating_button_add)
     public void Add() {
-        Intent intent = new Intent(this, DeliveryAddActivity.class);
+        Intent intent = new Intent(this, DeliveryProcedureActivity.class);
         startActivity(intent);
     }
 
