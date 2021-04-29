@@ -94,6 +94,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_previous_bcode" />
 
+    <ImageView
+        android:id="@+id/image_view_down"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/down"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_current_bcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_current_bcode" />
+
     <TextView
         android:id="@+id/textview_description"
         android:layout_width="wrap_content"
