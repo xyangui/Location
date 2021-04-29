@@ -83,7 +83,7 @@ public class StoreDeliveryActivity extends NetActivity {
 
     @OnClick(R.id.floating_button_add)
     public void Add() {
-        Intent intent = new Intent(this, StoreDeliveryAddActivity.class);
+        Intent intent = new Intent(this, DeliveryRMAPartsListActivity.class);
         startActivity(intent);
     }
 

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.icollection.location.Base.NetActivity;
-import com.icollection.location.Delivery.DeliveryAffairActivity;
+import com.icollection.location.Delivery.DeliveryMainActivity;
 import com.icollection.location.Location.LocationActivity;
 import com.icollection.location.Location.LocationEBActivity;
 import com.icollection.location.Order.ShopListActivity;
@@ -69,7 +69,7 @@ public class MainActivity extends NetActivity implements EasyPermissions.Permiss
 
     @OnClick(R.id.constraint_delivery)
     public void Delivery() {
-        Intent intent = new Intent(this, DeliveryAffairActivity.class);
+        Intent intent = new Intent(this, DeliveryMainActivity.class);
         startActivity(intent);
     }
 

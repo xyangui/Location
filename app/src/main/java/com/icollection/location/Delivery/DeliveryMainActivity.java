@@ -12,12 +12,12 @@ import com.icollection.location.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DeliveryAffairActivity extends NetActivity {
+public class DeliveryMainActivity extends NetActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deliveryaffair);
+        setContentView(R.layout.activity_delivery_main);
         ButterKnife.bind(this);
     }
 

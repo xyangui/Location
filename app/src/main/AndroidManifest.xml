@@ -33,7 +33,7 @@
 
         <activity android:name=".Location.LocationEBActivity" />
 
-        <activity android:name=".Delivery.DeliveryAffairActivity" />
+        <activity android:name=".Delivery.DeliveryMainActivity" />
 
         <activity android:name=".Delivery.CashActivity" />
 
@@ -43,7 +43,7 @@
 
         <activity android:name=".Delivery.Store.StoreDeliveryActivity" />
 
-        <activity android:name=".Delivery.Store.StoreDeliveryAddActivity" />
+        <activity android:name=".Delivery.Store.DeliveryRMAPartsListActivity" />
 
         <activity android:name=".ShopStock.ShopStockActivity" />
 
