@@ -88,13 +88,6 @@ public class DeliveryAffairActivity extends NetActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.constraint_bsic)
-    public void bsic() {
-        Intent intent = new Intent(this, RMAActivity.class);
-        intent.putExtra("ShopName", "BSIC");
-        startActivity(intent);
-    }
-
     @OnClick(R.id.constraint_test)
     public void test() {
         Intent intent = new Intent(this, RMATestActivity.class);

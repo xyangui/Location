@@ -39,8 +39,6 @@ public class ShopListActivity extends NetActivity {
     TextView FGIC_Ready;
     @BindView(R.id.text_view_cbic_ready)
     TextView CBIC_Ready;
-    @BindView(R.id.text_view_bsic_ready)
-    TextView BSIC_Ready;
 
 
     private String order_date;//星期一或者星期五的日期，例如：20210315
@@ -80,7 +78,6 @@ public class ShopListActivity extends NetActivity {
             askForRepository("PDNLIC" + order_date, NLIC_Ready);
             askForRepository("PDFGIC" + order_date, FGIC_Ready);
             askForRepository("PDCBIC" + order_date, CBIC_Ready);
-            askForRepository("PDBSIC" + order_date, BSIC_Ready);
         }
     }
 
@@ -165,15 +162,6 @@ public class ShopListActivity extends NetActivity {
         if(CBIC_Ready.getVisibility() == View.VISIBLE) {
             Intent intent = new Intent(this, OrderCollectActivity.class);
             intent.putExtra("OrderNo", "PDCBIC" + order_date);
-            startActivity(intent);
-        }
-    }
-
-    @OnClick(R.id.constraint_bsic)
-    public void BSIC() {
-        if(BSIC_Ready.getVisibility() == View.VISIBLE) {
-            Intent intent = new Intent(this, OrderCollectActivity.class);
-            intent.putExtra("OrderNo", "PDBSIC" + order_date);
             startActivity(intent);
         }
     }
