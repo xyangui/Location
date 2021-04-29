@@ -1,8 +1,10 @@
 package com.icollection.location.Order;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -53,6 +55,8 @@ public class OrderCollectActivity extends NetActivity {
     TextView textview_actual_send_value;
     @BindView(R.id.textview_location_value)
     TextView textview_location_value;
+    @BindView(R.id.recyclerview_series)
+    RecyclerView recyclerviewSeries;
 
     private String strOrderNo;//订单号，例如：PDWBPC20210315
     private List<OrderData> listOrderData;
@@ -140,6 +144,9 @@ public class OrderCollectActivity extends NetActivity {
         editQty.setText("");
 
         editBarcode.requestFocus();
+        //强制弹出键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editBarcode,InputMethodManager.SHOW_FORCED); //显示键盘,但是这条代码似乎执行无效果，因此可以使用toggleSoftInput来显示键盘。
     }
 
     // 向下箭头 按钮
@@ -149,10 +156,17 @@ public class OrderCollectActivity extends NetActivity {
         editBarcode.setText(textview_current_bcode.getText().toString().trim());
 
         editQty.requestFocus();
+        //强制弹出键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editQty,InputMethodManager.SHOW_FORCED); //显示键盘,但是这条代码似乎执行无效果，因此可以使用toggleSoftInput来显示键盘。
     }
 
-    @OnClick(R.id.btn_submit)
-    public void btn_submit() {
+    //检查barcode，与上面一致后，提交
+    @OnClick(R.id.btn_check_ok)
+    public void btn_check_ok() {
+        if(!checkNotEmpty()){
+            return;
+        }
 
         currentDataIndex++;
         if(currentDataIndex < listOrderData.size()) {
@@ -160,7 +174,56 @@ public class OrderCollectActivity extends NetActivity {
             oneRecordToShow(orderData);
         }
 
-        //发送网络请求，成功后更新界面
+        // TODO 发送网络请求，成功后更新界面
+        // TODO 把数据填进recyclerviewSeries
+        current_bcode_to_top();
+    }
+
+    //不检查barcode，直接提交
+    @OnClick(R.id.btn_ok)
+    public void btn_ok() {
+        if(!checkNotEmpty()){
+            return;
+        }
+
+        int d = 2;
+        // TODO 发送网络请求，成功后更新界面
+        // TODO 查找此barcode是否在订单内？
+        current_bcode_to_top();
+    }
+
+    private void current_bcode_to_top(){
+        textview_previous_bcode.setText(editBarcode.getText().toString().trim());
+        textview_previous_num.setText(editQty.getText().toString().trim());
+    }
+
+    private boolean checkNotEmpty(){
+
+        if(editBarcode.getText().toString().trim().isEmpty()){
+            new MaterialDialog.Builder(OrderCollectActivity.this)
+                    .title("Error")
+                    .content("Please input barcode!")
+                    .positiveText("OK")
+                    .show();
+            return false;
+        }
+        if(editQty.getText().toString().trim().isEmpty()){
+            new MaterialDialog.Builder(OrderCollectActivity.this)
+                    .title("Error")
+                    .content("Please input quantity!")
+                    .positiveText("OK")
+                    .show();
+            return false;
+        }
+        if(editQty.getText().toString().trim().equals("0")){
+            new MaterialDialog.Builder(OrderCollectActivity.this)
+                    .title("Error")
+                    .content("The quantity cannot be 0!")
+                    .positiveText("OK")
+                    .show();
+            return false;
+        }
+        return true;
     }
 
     @OnClick(R.id.image_view_back)
