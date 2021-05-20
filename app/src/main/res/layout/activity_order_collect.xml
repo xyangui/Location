@@ -191,6 +191,8 @@
         android:layout_height="wrap_content"
         android:text="00"
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/textview_stock_shop_value"
         app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
 
@@ -210,6 +212,8 @@
         android:layout_marginStart="4dp"
         android:text="00"
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/textview_stock_wh_value"
         app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
 
@@ -230,6 +234,8 @@
         android:layout_marginEnd="4dp"
         android:text="0"
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textview_shop_order" />
 
@@ -329,13 +335,34 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
+    <TextView
+        android:id="@+id/textview_barcode_for_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Barcode"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ok" />
+
+    <TextView
+        android:id="@+id/textview_location_for_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Location"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_barcode_for_recyclerview" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_series"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_edit_all" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_barcode_for_recyclerview" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,8 @@
 package com.icollection.location.Data.Order;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.List;
 
 public class OrderData {
@@ -150,6 +153,19 @@ public class OrderData {
         this.location = location;
     }
     public Object getLocation() {
+        return location;
+    }
+
+    public String getLocationString() {
+
+        //取位置   {PL=[Null], EB=[Null]}  String str = "{PL=[Null], EB=[Null]}";
+        String str = getLocation().toString();
+        Gson gson = new Gson();
+        OrderData.LocationBean locationBean = gson.fromJson(str, new TypeToken<LocationBean>() {
+        }.getType());
+
+        String location = locationBean.get_PL_Location();
+
         return location;
     }
 

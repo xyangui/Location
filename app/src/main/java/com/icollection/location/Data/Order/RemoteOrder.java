@@ -31,4 +31,27 @@ public class RemoteOrder {
                 .getApi()
                 .getOrderData(shopname, PD_shopname_date);
     }
+
+    public Flowable<List<OrderData>> getOrderData_test(@NonNull String PD_shopname_date) {
+
+        //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/BSIC/orderno/PDBSIC20210419"
+        String shopname = PD_shopname_date.substring(2,6);
+
+        //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPPC/orderno/PDHPPC20160530"
+
+        return Http
+                .getInstance()
+                .getApi()
+                .getOrderData("HPPC", "PDHPPC20160530");
+    }
+
+    public Flowable<List<ResultFromSaveOneToDB>> saveOneToDB(@NonNull String PD_shopname_date,
+                                                             @NonNull String bcode,
+                                                             @NonNull int qty) {
+
+        return Http
+                .getInstance()
+                .getApi()
+                .saveOneToDB(PD_shopname_date, bcode, qty);
+    }
 }

@@ -1,6 +1,8 @@
 package com.icollection.location.Order;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -15,8 +17,12 @@ import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Order.OrderData;
 import com.icollection.location.Data.Order.RemoteOrder;
+import com.icollection.location.Data.Order.ResultFromSaveOneToDB;
+import com.icollection.location.Location.SeriesAdapter;
 import com.icollection.location.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +68,8 @@ public class OrderCollectActivity extends NetActivity {
     private List<OrderData> listOrderData;
     private int currentDataIndex; //当前在界面显示数据，在上面数组中的索引
 
+    private OrderCollectAdapter seriesAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +88,7 @@ public class OrderCollectActivity extends NetActivity {
             disposableAddWithoutProgress(
                     RemoteOrder
                             .getInstance()
-                            .getOrderData(strOrderNo),
+                            .getOrderData_test(strOrderNo), //改成测试版本
                     orderDatas -> {
 
                         listOrderData = orderDatas;
@@ -88,6 +96,8 @@ public class OrderCollectActivity extends NetActivity {
                         OrderData orderData = listOrderData.get(0);
                         currentDataIndex = 0;
                         oneRecordToShow(orderData);
+
+                        seriesAdapter.setNewData(listOrderData);
                     });
         }
 
@@ -112,6 +122,8 @@ public class OrderCollectActivity extends NetActivity {
                 return false;
             }
         });
+
+        initAdapter();
     }
 
     private void oneRecordToShow(OrderData orderData) {
@@ -126,14 +138,7 @@ public class OrderCollectActivity extends NetActivity {
         textview_actual_send_value.setText(orderData.getActual_send());
         textview_remark_value.setText(orderData.getRemark());
 
-        //取位置   {PL=[Null], EB=[Null]}  String str = "{PL=[Null], EB=[Null]}";
-        String str = orderData.getLocation().toString();
-        Gson gson = new Gson();
-        OrderData.LocationBean locationBean = gson.fromJson(str, new TypeToken<OrderData.LocationBean>() {
-        }.getType());
-
-        String location = locationBean.get_PL_Location();
-        textview_location_value.setText(location);
+        textview_location_value.setText(orderData.getLocationString());
     }
 
     // X 按钮
@@ -167,16 +172,72 @@ public class OrderCollectActivity extends NetActivity {
         if(!checkNotEmpty()){
             return;
         }
-
-        currentDataIndex++;
-        if(currentDataIndex < listOrderData.size()) {
-            OrderData orderData = listOrderData.get(currentDataIndex);
-            oneRecordToShow(orderData);
+        String bcode = editBarcode.getText().toString().trim();
+        if(!bcode.equals(textview_current_bcode.getText().toString())){
+            new MaterialDialog.Builder(OrderCollectActivity.this)
+                    .title("Error")
+                    .content("The barcode entered does not match the current barcode!")
+                    .positiveText("OK")
+                    .show();
+            return;
         }
 
-        // TODO 发送网络请求，成功后更新界面
-        // TODO 把数据填进recyclerviewSeries
-        current_bcode_to_top();
+        disposableAddWithProgress(
+                RemoteOrder
+                        .getInstance()
+                        .saveOneToDB("PDHPPC20160530", bcode, Integer.parseInt(editQty.getText().toString())),
+                        //.saveOneToDB(strOrderNo, bcode, Integer.parseInt(editQty.getText().toString())),
+                resultFromSaveOneToDBs -> {
+
+                    ResultFromSaveOneToDB result = resultFromSaveOneToDBs.get(0);
+
+                    if(result.getMessage().equals("Scan Successful")) {
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Done")
+                                .content("Saved successfully to the database!")
+                                .positiveText("OK")
+                                .show();
+
+                        textview_previous_bcode.setText(editBarcode.getText().toString().trim());
+                        textview_previous_num.setText(editQty.getText().toString().trim());
+
+                        listOrderData.remove(0);
+
+                        //List<OrderData> listOrderData2 = seriesAdapter.getData();
+                        //listOrderData2.remove(0);
+                        seriesAdapter.notifyDataSetChanged();
+
+                        if(!listOrderData.isEmpty()){
+                            oneRecordToShow(listOrderData.get(0));
+                        } else {
+                            new MaterialDialog.Builder(OrderCollectActivity.this)
+                                    .title("Finished")
+                                    .content("This is the last one!")
+                                    .positiveText("OK")
+                                    .show();
+                        }
+//                        currentDataIndex++;
+//                        if (currentDataIndex < listOrderData.size()) {
+//                            OrderData orderData = listOrderData.get(currentDataIndex);
+//                            oneRecordToShow(orderData);
+//                        }
+                        // TODO listOrderData 留一个所有没有捡到商品的数组？
+
+                        editQty.setText("");
+                        editBarcode.setText("");
+                        editBarcode.requestFocus();
+                    }
+
+                    if(result.getMessage().equals("This Barcode not exist")) {
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Error")
+                                .content("This Barcode not exist in this order!")
+                                .positiveText("OK")
+                                .show();
+                    }
+                });
+
+
     }
 
     //不检查barcode，直接提交
@@ -229,5 +290,18 @@ public class OrderCollectActivity extends NetActivity {
     @OnClick(R.id.image_view_back)
     public void imageViewBack() {
         finish();
+    }
+
+    /**
+     * 绑定适配器，显示系列其他产品位置列表
+     */
+    private void initAdapter() {
+
+        recyclerviewSeries.setLayoutManager(new LinearLayoutManager(this));
+        recyclerviewSeries.setItemAnimator(new DefaultItemAnimator());
+
+        seriesAdapter = new OrderCollectAdapter(new ArrayList<>(), this);
+
+        recyclerviewSeries.setAdapter(seriesAdapter);
     }
 }
