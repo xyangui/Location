@@ -7,22 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.icollection.location.Base.NetActivity;
 import com.icollection.location.Base.TransInformation;
 import com.icollection.location.Data.Order.OrderData;
 import com.icollection.location.Data.Order.RemoteOrder;
 import com.icollection.location.Data.Order.ResultFromSaveOneToDB;
-import com.icollection.location.Location.SeriesAdapter;
 import com.icollection.location.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,10 +60,13 @@ public class OrderCollectActivity extends NetActivity {
     TextView textview_location_value;
     @BindView(R.id.recyclerview_series)
     RecyclerView recyclerviewSeries;
+    @BindView(R.id.btn_update)
+    Button btnUpdate;
 
     private String strOrderNo;//订单号，例如：PDWBPC20210315
-    private List<OrderData> listOrderData;
-    private int currentDataIndex; //当前在界面显示数据，在上面数组中的索引
+    private List<OrderData> listOrderData;//保存所有"没有捡到"商品列表
+    private OrderData previous_orderData;//保存上一个刚刚捡过的商品
+    private OrderData current_orderData;//保存当前的商品，不在数组里面
 
     private OrderCollectAdapter seriesAdapter;
 
@@ -85,19 +85,27 @@ public class OrderCollectActivity extends NetActivity {
             String shopname = strOrderNo.substring(2,6);
             textTitle.setText("Collect order for " + shopname);
 
+            //http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/count-kt-warehouse/shop/EPIC
             disposableAddWithoutProgress(
                     RemoteOrder
                             .getInstance()
-                            .getOrderData_test(strOrderNo), //改成测试版本
+                            //.getOrderData_test(strOrderNo), //改成测试版本
+                            //.getOrderData(strOrderNo),//正式版本
+                            .getOrderData("PDEPIC20210531"), //测试版本
                     orderDatas -> {
 
                         listOrderData = orderDatas;
 
-                        OrderData orderData = listOrderData.get(0);
-                        currentDataIndex = 0;
-                        oneRecordToShow(orderData);
+                        current_orderData = listOrderData.get(0);
+                        oneRecordToShow(current_orderData);
+
+                        listOrderData.remove(0);
 
                         seriesAdapter.setNewData(listOrderData);
+
+                        previous_orderData = null;
+                        btnUpdate.setEnabled(false);
+                        find_no_locaction_is_none();
                     });
         }
 
@@ -114,7 +122,7 @@ public class OrderCollectActivity extends NetActivity {
                     } else {
                         new MaterialDialog.Builder(OrderCollectActivity.this)
                                 .title("Error")
-                                .content("You collect wrong product, please change to the correct one.")
+                                .content("You collect wrong product, please change to the right one.")
                                 .positiveText("OK")
                                 .show();
                     }
@@ -185,43 +193,48 @@ public class OrderCollectActivity extends NetActivity {
         disposableAddWithProgress(
                 RemoteOrder
                         .getInstance()
-                        .saveOneToDB("PDHPPC20160530", bcode, Integer.parseInt(editQty.getText().toString())),
+                        //.saveOneToDB("PDHPPC20160530", bcode, Integer.parseInt(editQty.getText().toString())),//测试版本
+                        .saveOneToDB("PDEPIC20210531", bcode, Integer.parseInt(editQty.getText().toString())),
                         //.saveOneToDB(strOrderNo, bcode, Integer.parseInt(editQty.getText().toString())),
                 resultFromSaveOneToDBs -> {
 
                     ResultFromSaveOneToDB result = resultFromSaveOneToDBs.get(0);
 
                     if(result.getMessage().equals("Scan Successful")) {
-                        new MaterialDialog.Builder(OrderCollectActivity.this)
-                                .title("Done")
-                                .content("Saved successfully to the database!")
-                                .positiveText("OK")
-                                .show();
 
                         textview_previous_bcode.setText(editBarcode.getText().toString().trim());
                         textview_previous_num.setText(editQty.getText().toString().trim());
-
-                        listOrderData.remove(0);
-
-                        //List<OrderData> listOrderData2 = seriesAdapter.getData();
-                        //listOrderData2.remove(0);
-                        seriesAdapter.notifyDataSetChanged();
+                        previous_orderData = current_orderData;
+                        previous_orderData.setActual_send(editQty.getText().toString().trim());
+                        btnUpdate.setEnabled(true);
 
                         if(!listOrderData.isEmpty()){
-                            oneRecordToShow(listOrderData.get(0));
+
+                            current_orderData = listOrderData.get(0);
+                            oneRecordToShow(current_orderData);
+
+                            listOrderData.remove(0);
+
+                            find_no_locaction_is_none();
+
+                            seriesAdapter.notifyDataSetChanged();
+
                         } else {
+
+                            textview_actual_send_value.setText(editQty.getText().toString().trim());
+
                             new MaterialDialog.Builder(OrderCollectActivity.this)
                                     .title("Finished")
                                     .content("This is the last one!")
                                     .positiveText("OK")
                                     .show();
                         }
-//                        currentDataIndex++;
-//                        if (currentDataIndex < listOrderData.size()) {
-//                            OrderData orderData = listOrderData.get(currentDataIndex);
-//                            oneRecordToShow(orderData);
-//                        }
-                        // TODO listOrderData 留一个所有没有捡到商品的数组？
+
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Done")
+                                .content("Saved successfully to the database!")
+                                .positiveText("OK")
+                                .show();
 
                         editQty.setText("");
                         editBarcode.setText("");
@@ -240,23 +253,74 @@ public class OrderCollectActivity extends NetActivity {
 
     }
 
-    //不检查barcode，直接提交
-    @OnClick(R.id.btn_ok)
-    public void btn_ok() {
-        if(!checkNotEmpty()){
+    //跳过当前商品，把当前商品放到数组最后，显示下一个商品
+    @OnClick(R.id.btn_next)
+    public void btn_next() {
+
+        listOrderData.add(current_orderData);
+
+        current_orderData = listOrderData.get(0);
+        listOrderData.remove(0);
+
+        oneRecordToShow(current_orderData);
+
+        seriesAdapter.notifyDataSetChanged();
+
+        find_no_locaction_is_none();
+    }
+
+    private void find_no_locaction_is_none() {
+        // 记住当前bcode
+        // TODO 死循环，如果数组中全都是 none 或者 recall
+        while (textview_location_value.getText().toString().equals("NONE") ||
+                textview_location_value.getText().toString().equals("recall")){
+            // TODO btn_next(); // 不能这样嵌套，拷贝代码到这
+            // 如果 == 当前bcode，跳出循环
+        }
+    }
+
+    // REMOVE 按钮
+    @OnClick(R.id.btn_remove)
+    public void btn_remove() {
+        current_orderData = listOrderData.get(0);
+        listOrderData.remove(0);
+
+        oneRecordToShow(current_orderData);
+
+        seriesAdapter.notifyDataSetChanged();
+
+        find_no_locaction_is_none();
+    }
+
+    // UPDATE 按钮
+    @OnClick(R.id.btn_update)
+    public void btnUpdate() {
+        if(previous_orderData == null){
             return;
         }
 
-        int d = 2;
-        // TODO 发送网络请求，成功后更新界面
-        // TODO 查找此barcode是否在订单内？
-        current_bcode_to_top();
+        listOrderData.add(0, current_orderData);
+        seriesAdapter.notifyDataSetChanged();
+
+        current_orderData = previous_orderData;
+        oneRecordToShow(current_orderData);
+
+        editBarcode.setText(current_orderData.getCodeProduct());
+        editQty.setText(current_orderData.getActual_send());
+
+        editQty.requestFocus();
+        //强制弹出键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editQty,InputMethodManager.SHOW_FORCED); //显示键盘,但是这条代码似乎执行无效果，因此可以使用toggleSoftInput来显示键盘。
+
+
+        btnUpdate.setEnabled(false);
     }
 
-    private void current_bcode_to_top(){
-        textview_previous_bcode.setText(editBarcode.getText().toString().trim());
-        textview_previous_num.setText(editQty.getText().toString().trim());
-    }
+//    private void current_bcode_to_top(){
+//        textview_previous_bcode.setText(editBarcode.getText().toString().trim());
+//        textview_previous_num.setText(editQty.getText().toString().trim());
+//    }
 
     private boolean checkNotEmpty(){
 

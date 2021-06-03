@@ -64,14 +64,34 @@
         app:layout_constraintTop_toBottomOf="@+id/frame_toolbar" />
 
     <TextView
-        android:id="@+id/textview_previous_num"
+        android:id="@+id/textview_previous_actual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:text="Actual Send"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/textview_previous_num"
+        app:layout_constraintTop_toTopOf="@+id/textview_previous_bcode" />
+
+    <TextView
+        android:id="@+id/textview_previous_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="Qty"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_update"
         app:layout_constraintTop_toTopOf="@+id/textview_previous_bcode" />
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="65dp"
+        android:layout_height="35dp"
+        android:text="UPDATE"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_previous_bcode"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_previous_bcode" />
 
     <!--横线-->
     <View
@@ -306,7 +326,7 @@
 
     <EditText
         android:id="@+id/edit_qty"
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:hint="Qty"
         android:inputType="number"
@@ -326,14 +346,24 @@
         app:layout_constraintTop_toTopOf="@+id/edit_qty" />
 
     <Button
-        android:id="@+id/btn_ok"
+        android:id="@+id/btn_next"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="NEXT"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/btn_check_ok"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/btn_remove"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="REMOVE"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@+id/btn_next"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edit_qty" />
 
     <TextView
         android:id="@+id/textview_barcode_for_recyclerview"
@@ -344,7 +374,7 @@
         android:text="Barcode"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ok" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_next" />
 
     <TextView
         android:id="@+id/textview_location_for_recyclerview"

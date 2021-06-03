@@ -62,10 +62,10 @@ public interface Api {
                                            @Path("PD_shopname_date") String PD_shopname_date);
 
     //测试链接
-    //http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/count-kt-warehouse/shop/HPPC/orderno/PDHPPC20160530
-    //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPPC/orderno/PDHPPC20160530"
-    @GET("stock/count-kt-warehouse/shop/HPPC/orderno/PDHPPC20160530")
-    Flowable<List<OrderData>> getOrderData_test();
+    //http://approd9h4leb60v4olh1v.phonecollection.com.au/stock/count-kt-warehouse/shop/HPPC/orderno/PDHPPC20160530   //网页版本
+    //http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/HPPC/orderno/PDHPPC20160530  //json版本
+//    @GET("stock/count-kt-warehouse/shop/HPPC/orderno/PDHPPC20160530")
+//    Flowable<List<OrderData>> getOrderData_test();
 
     //http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order-scan/orderno/PDHPPC20160530/scan_code/660543015192/scan_qty/50
     @GET("jsonfunction/take-order-scan/orderno/{PD_shopname_date}/scan_code/{bcode}/scan_qty/{qty}")
