@@ -38,12 +38,12 @@
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
             android:text="Collect"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,86 +55,38 @@
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/text_g_less"
+            app:layout_constraintBottom_toBottomOf="@+id/text_less_value"
             app:layout_constraintStart_toStartOf="@+id/text_correct" />
 
         <TextView
             android:id="@+id/text_less_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:text="0"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/text_g_less"
-            app:layout_constraintEnd_toStartOf="@+id/text_g_less" />
-
-        <TextView
-            android:id="@+id/text_g_less"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Less G"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/text_g_less_value"
-            app:layout_constraintStart_toStartOf="@+id/text_g_correct" />
-
-        <TextView
-            android:id="@+id/text_g_less_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/text_g_correct"
+            app:layout_constraintBottom_toTopOf="@+id/text_correct"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/text_correct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="8dp"
             android:text="Correct"
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/text_g_correct"
+            app:layout_constraintBottom_toBottomOf="@+id/text_correct_value"
             app:layout_constraintEnd_toStartOf="@+id/text_correct_value" />
 
         <TextView
             android:id="@+id/text_correct_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/text_g_correct"
-            app:layout_constraintEnd_toStartOf="@+id/text_g_correct" />
-
-        <TextView
-            android:id="@+id/text_g_correct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="Correct G"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_g_correct_value" />
-
-        <TextView
-            android:id="@+id/text_g_correct_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
             android:text="0"
             android:textColor="@color/white"

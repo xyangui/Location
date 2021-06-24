@@ -23,7 +23,7 @@ public class RemoteOrder {
 
     public Flowable<List<OrderData>> getOrderData(@NonNull String PD_shopname_date) {
 
-        //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/BSIC/orderno/PDBSIC20210419"
+        //"http://approd9h4leb60v4olh1v.phonecollection.com.au/jsonfunction/take-order/shop/NLIC/orderno/PDNLIC20210621"
         String shopname = PD_shopname_date.substring(2,6);
 
         return Http

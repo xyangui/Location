@@ -1,6 +1,7 @@
 package com.icollection.location.Order;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,12 +65,8 @@ public class OrderCollectActivity extends NetActivity {
     Button btnUpdate;
     @BindView(R.id.text_less_value)
     TextView text_less_value;
-    @BindView(R.id.text_g_less_value)
-    TextView text_g_less_value;
     @BindView(R.id.text_correct_value)
     TextView text_correct_value;
-    @BindView(R.id.text_g_correct_value)
-    TextView text_g_correct_value;
 
     private String strOrderNo;//订单号，例如：PDWBPC20210315
     private List<OrderData> listOrderData;//保存所有"没有捡到"商品列表
@@ -98,8 +95,8 @@ public class OrderCollectActivity extends NetActivity {
                     RemoteOrder
                             .getInstance()
                             //.getOrderData_test(strOrderNo), //改成测试版本
-                            //.getOrderData(strOrderNo),//正式版本
-                            .getOrderData("PDEPIC20210531"), //测试版本
+                            .getOrderData(strOrderNo),//正式版本
+                            //.getOrderData("PDEPIC20210531"), //测试版本
                     orderDatas -> {
 
                         listOrderData = orderDatas;
@@ -126,7 +123,14 @@ public class OrderCollectActivity extends NetActivity {
                     String current_bcode = textview_current_bcode.getText().toString().trim();
 
                     if(barcode_from_scanner.equals(current_bcode)){
-                        editQty.requestFocus();
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                editQty.requestFocus();
+                            }
+                        }, 100);    //延时0.1s执行
+
                     } else {
                         new MaterialDialog.Builder(OrderCollectActivity.this)
                                 .title("Error")
@@ -143,6 +147,70 @@ public class OrderCollectActivity extends NetActivity {
     }
 
     private void oneRecordToShow(OrderData orderData) {
+
+        textview_description.setBackgroundColor(getResources().getColor(R.color.white, getTheme()));
+        textview_description.setTextColor(getResources().getColor(R.color.black, getTheme()));
+
+        String description = orderData.getTitle().toLowerCase();
+        description = description.replace("bluemoon", "");
+
+        if(description.contains("black")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains(" red")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("hot pink") || description.contains("hotpink")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.hotpink, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        } else if (description.contains("pink")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.pink, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("rose gold")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.rosegold, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }else if(description.contains("golden") || description.contains("gold")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.golden, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.black, getTheme()));
+        }
+        if(description.contains("purple")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.purple, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("dark blue")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.darkblue, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        } else if (description.contains("blue")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.blue, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("grey") || description.contains("gray")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.grey, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("green")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("brown")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.brown, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.white, getTheme()));
+        }
+        if(description.contains("orange")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.orange, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.black, getTheme()));
+        }
+        if(description.contains("yellow")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.yellow, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.black, getTheme()));
+        }
+        if(description.contains("silver")){
+            textview_description.setBackgroundColor(getResources().getColor(R.color.silver, getTheme()));
+            textview_description.setTextColor(getResources().getColor(R.color.black, getTheme()));
+        }
 
         textview_current_bcode.setText(orderData.getCodeProduct());
         textview_description.setText(orderData.getTitle());
@@ -198,36 +266,36 @@ public class OrderCollectActivity extends NetActivity {
             return;
         }
 
-        String location0 = current_orderData.getLocationString().substring(0,1);
-        if(location0.equals("G") || location0.equals("g")) {
-
-            int value;
-            int actual_send = Integer.parseInt(editQty.getText().toString().trim());
-            int i = Integer.parseInt(current_orderData.getShop_actual_order());
-            if(i == actual_send){
-
-                value = Integer.parseInt(text_g_correct_value.getText().toString()) + 1;
-                text_g_correct_value.setText(String.valueOf(value));
-            }
-            if(i > actual_send){
-                value = Integer.parseInt(text_g_less_value.getText().toString()) + 1;
-                text_g_less_value.setText(String.valueOf(value));
-            }
-
-            new MaterialDialog.Builder(OrderCollectActivity.this)
-                    .title("Done")
-                    .content("Please double check!")
-                    .positiveText("OK")
-                    .show();
-            return;
-        }
+//        String location0 = current_orderData.getLocationString().substring(0,1);
+//        if(location0.equals("G") || location0.equals("g")) {
+//
+//            int value;
+//            int actual_send = Integer.parseInt(editQty.getText().toString().trim());
+//            int i = Integer.parseInt(current_orderData.getShop_actual_order());
+//            if(i == actual_send){
+//
+//                value = Integer.parseInt(text_g_correct_value.getText().toString()) + 1;
+//                text_g_correct_value.setText(String.valueOf(value));
+//            }
+//            if(i > actual_send){
+//                value = Integer.parseInt(text_g_less_value.getText().toString()) + 1;
+//                text_g_less_value.setText(String.valueOf(value));
+//            }
+//
+//            new MaterialDialog.Builder(OrderCollectActivity.this)
+//                    .title("Done")
+//                    .content("Please double check!")
+//                    .positiveText("OK")
+//                    .show();
+//            return;
+//        }
 
         disposableAddWithProgress(
                 RemoteOrder
                         .getInstance()
                         //.saveOneToDB("PDHPPC20160530", bcode, Integer.parseInt(editQty.getText().toString())),//测试版本
-                        .saveOneToDB("PDEPIC20210531", bcode, Integer.parseInt(editQty.getText().toString())),
-                        //.saveOneToDB(strOrderNo, bcode, Integer.parseInt(editQty.getText().toString())),
+                        //.saveOneToDB("PDEPIC20210531", bcode, Integer.parseInt(editQty.getText().toString())),
+                        .saveOneToDB(strOrderNo, bcode, Integer.parseInt(editQty.getText().toString())),
                 resultFromSaveOneToDBs -> {
 
                     ResultFromSaveOneToDB result = resultFromSaveOneToDBs.get(0);
@@ -307,48 +375,74 @@ public class OrderCollectActivity extends NetActivity {
     //跳过当前商品，把当前商品放到数组最后，显示下一个商品
     @OnClick(R.id.btn_next)
     public void btn_next() {
+//
+//        String bcode = textview_current_bcode.getText().toString();
+//
+//        new MaterialDialog.Builder(this)
+//                .title("Warning")
+//                .content("Are you sure to skip " + bcode + "? It will not be removed, and be moved to the end of the list.")
+//                .positiveText("OK")
+//                .onPositive((dialog1, which) -> {
 
-        if(!find_data_with_locaction()){
-            new MaterialDialog.Builder(OrderCollectActivity.this)
-                    .title("Notice")
-                    .content("This is the last one with location!")
-                    .positiveText("OK")
-                    .show();
-            return;
-        }
+                    //确认后
+                    if(!find_data_with_locaction()){
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Notice")
+                                .content("This is the last one with location!")
+                                .positiveText("OK")
+                                .show();
+                        return;
+                    }
 
-        listOrderData.add(current_orderData);
+                    listOrderData.add(current_orderData);
 
-        current_orderData = listOrderData.get(0);
-        listOrderData.remove(0);
+                    current_orderData = listOrderData.get(0);
+                    listOrderData.remove(0);
 
-        oneRecordToShow(current_orderData);
-        seriesAdapter.notifyDataSetChanged();
+                    oneRecordToShow(current_orderData);
+                    seriesAdapter.notifyDataSetChanged();
+
+//                })
+//                .negativeText("CANCEL")
+//                .show();
     }
 
     // REMOVE 按钮
     @OnClick(R.id.btn_remove)
     public void btn_remove() {
 
-        if(!find_data_with_locaction()){
-            new MaterialDialog.Builder(OrderCollectActivity.this)
-                    .title("Notice")
-                    .content("This is the last one with location!")
-                    .positiveText("OK")
-                    .show();
-            return;
-        }
+        String bcode = textview_current_bcode.getText().toString();
 
-        current_orderData = listOrderData.get(0);
-        listOrderData.remove(0);
+        new MaterialDialog.Builder(this)
+                .title("Warning")
+                .content("Are you sure to remove " + bcode + "? Are you sure it is out of stock?")
+                .positiveText("OK")
+                .onPositive((dialog1, which) -> {
 
-        oneRecordToShow(current_orderData);
-        seriesAdapter.notifyDataSetChanged();
+                    //确认删除后
+                    if(!find_data_with_locaction()){
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Notice")
+                                .content("This is the last one with location!")
+                                .positiveText("OK")
+                                .show();
+                        return;
+                    }
+
+                    current_orderData = listOrderData.get(0);
+                    listOrderData.remove(0);
+
+                    oneRecordToShow(current_orderData);
+                    seriesAdapter.notifyDataSetChanged();
+                })
+                .negativeText("CANCEL")
+                .show();
     }
 
     /**
      * 找到有位置的数据，并且放置到数组 0 位置
-     * @return
+     * @return 数组中位置都是NONE或者recall，返回false
+     *         数组中 0 位置的数据有位置，返回true
      */
     private boolean find_data_with_locaction(){
 
@@ -384,41 +478,68 @@ public class OrderCollectActivity extends NetActivity {
     @OnClick(R.id.btn_remove_all)
     public void btn_remove_all() {
 
-        int num = 0;
-        int size = listOrderData.size();
+        new MaterialDialog.Builder(this)
+                .title("Warning")
+                .content("Are you sure to remove all collected item?")
+                .positiveText("OK")
+                .onPositive((dialog1, which) -> {
 
-        String str;
+                    listOrderData.add(0, current_orderData);
 
-        while (num < size){
-            num++;
+                    //确认后
+                    int num = 0;
+                    int size = listOrderData.size();
 
-            OrderData bean = listOrderData.get(0);
-            listOrderData.remove(0);
+                    int sum_less = 0;
+                    int sum_correct = 0;
 
-            if(bean.getActual_send() == null){
-                listOrderData.add(bean);
-            }
-        }
+                    while (num < size){
+                        num++;
 
-        if(find_data_with_locaction()){
-            current_orderData = listOrderData.get(0);
-            listOrderData.remove(0);
+                        OrderData bean = listOrderData.get(0);
+                        listOrderData.remove(0);
+                        //删除所有"实际发送数量不为null"的数据
+                        if(bean.getActual_send() == null){
+                            listOrderData.add(bean);
+                        } else {
 
-            oneRecordToShow(current_orderData);
-            seriesAdapter.notifyDataSetChanged();
+                            int i = Integer.parseInt(bean.getActual_send());
+                            int j = Integer.parseInt(bean.getShop_actual_order());
+                            if(i == j){
+                                sum_correct++;
+                            }
+                            if(i < j){
+                                sum_less++;
+                            }
+                        }
+                    }
 
-            new MaterialDialog.Builder(OrderCollectActivity.this)
-                    .title("Done")
-                    .content("All collected data was successfully removed!")
-                    .positiveText("OK")
-                    .show();
-        } else {
-            new MaterialDialog.Builder(OrderCollectActivity.this)
-                    .title("Done")
-                    .content("All collected data was successfully removed and complete the collecting!")
-                    .positiveText("OK")
-                    .show();
-        }
+                    text_correct_value.setText(String.valueOf(sum_correct));
+                    text_less_value.setText(String.valueOf(sum_less));
+
+                    if(find_data_with_locaction()){
+                        current_orderData = listOrderData.get(0);
+                        listOrderData.remove(0);
+
+                        oneRecordToShow(current_orderData);
+                        seriesAdapter.notifyDataSetChanged();
+
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Done")
+                                .content("All collected item was successfully removed!")
+                                .positiveText("OK")
+                                .show();
+                    } else {
+                        new MaterialDialog.Builder(OrderCollectActivity.this)
+                                .title("Done")
+                                .content("All collected item was successfully removed and complete the collecting!")
+                                .positiveText("OK")
+                                .show();
+                    }
+
+                })
+                .negativeText("CANCEL")
+                .show();
     }
 
     /**
@@ -453,26 +574,38 @@ public class OrderCollectActivity extends NetActivity {
     // UPDATE 按钮
     @OnClick(R.id.btn_update)
     public void btnUpdate() {
-        if(previous_orderData == null){
-            return;
-        }
 
-        listOrderData.add(0, current_orderData);
-        seriesAdapter.notifyDataSetChanged();
+        new MaterialDialog.Builder(this)
+                .title("Warning")
+                .content("Are you sure to update previous item?")
+                .positiveText("OK")
+                .onPositive((dialog1, which) -> {
 
-        current_orderData = previous_orderData;
-        oneRecordToShow(current_orderData);
+                    //确认后
+                    if(previous_orderData == null){
+                        return;
+                    }
 
-        editBarcode.setText(current_orderData.getCodeProduct());
-        editQty.setText(current_orderData.getActual_send());
+                    listOrderData.add(0, current_orderData);
+                    seriesAdapter.notifyDataSetChanged();
 
-        editQty.requestFocus();
-        //强制弹出键盘
-        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editQty,InputMethodManager.SHOW_FORCED); //显示键盘,但是这条代码似乎执行无效果，因此可以使用toggleSoftInput来显示键盘。
+                    current_orderData = previous_orderData;
+                    oneRecordToShow(current_orderData);
+
+                    editBarcode.setText(current_orderData.getCodeProduct());
+                    editQty.setText(current_orderData.getActual_send());
+
+                    editQty.requestFocus();
+                    //强制弹出键盘
+                    InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(editQty,InputMethodManager.SHOW_FORCED); //显示键盘,但是这条代码似乎执行无效果，因此可以使用toggleSoftInput来显示键盘。
 
 
-        btnUpdate.setEnabled(false);
+                    btnUpdate.setEnabled(false);
+                })
+                .negativeText("CANCEL")
+                .show();
+
     }
 
 //    private void current_bcode_to_top(){
@@ -511,7 +644,23 @@ public class OrderCollectActivity extends NetActivity {
 
     @OnClick(R.id.image_view_back)
     public void imageViewBack() {
-        finish();
+
+        new MaterialDialog.Builder(this)
+                .title("Warning")
+                .content("Are you sure to finish collecting?")
+                .positiveText("OK")
+                .onPositive((dialog1, which) -> {
+
+                    //确认后
+                    finish();
+                })
+                .negativeText("CANCEL")
+                .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        imageViewBack();
     }
 
     /**
